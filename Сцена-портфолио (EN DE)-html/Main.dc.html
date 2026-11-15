@@ -1,0 +1,1088 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Wilcom embroidery digitizing from Nürnberg: logos, lettering and artwork, any machine format, unlimited revisions, 1 free test design.">
+<title>Micolash Stitch Studio</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:inherit;text-decoration:none}
+button{font-family:'DM Sans',sans-serif}
+
+/* ===== patches: a live copy of one region of the picture, positioned in picture pixels (2576 x 1438) ===== */
+.pt{position:absolute;pointer-events:none;
+  left:calc(var(--x) / 2576 * 100%);top:calc(var(--y) / 1438 * 100%);
+  width:calc(var(--w) / 2576 * 100%);height:calc(var(--h) / 1438 * 100%);
+  background-image:url(./assets/85327048f9fb80c8ed957fbe25d9cb64.jpg);background-repeat:no-repeat;
+  background-size:calc(2576 / var(--w) * 100%) calc(1438 / var(--h) * 100%);
+  background-position:calc(var(--x) / (2576 - var(--w)) * 100%) calc(var(--y) / (1438 - var(--h)) * 100%)}
+.soft{-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 7%,#000 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 7%,#000 100%);mask-composite:intersect}
+/* fade the extracted head into the illustration so its rectangular crop cannot show */
+.hw .pt.soft{-webkit-mask-image:radial-gradient(ellipse 62% 64% at 44% 46%,#000 80%,rgba(0,0,0,.9) 90%,transparent 100%);mask-image:radial-gradient(ellipse 62% 64% at 44% 46%,#000 80%,rgba(0,0,0,.9) 90%,transparent 100%)}
+.layer{position:absolute;inset:0;pointer-events:none}
+
+/* ===== embroidery machine: the head trembles, one needle goes up and down ===== */
+.mhead{animation:mshake .14s linear infinite alternate}
+@keyframes mshake{from{transform:translate(-.45%,0)}to{transform:translate(.45%,.2%)}}
+.needle{animation:needle .3s ease-in-out infinite}
+@keyframes needle{0%,100%{transform:translateY(0)}50%{transform:translateY(15%)}}
+
+/* ===== 14 second loop: gum inflates, pops, then the character reacts ===== */
+.hw{transform-origin:53% 49.5%;animation:hw 14s cubic-bezier(.45,0,.25,1) infinite}
+@keyframes hw{
+  0%,36%,100%{transform:none}
+  48%{transform:rotate(-.35deg) translateY(-.08%)}
+  62%,70%{transform:rotate(-1.15deg) translateY(-.18%)}
+  84%{transform:rotate(-.45deg) translateY(-.08%)}}
+.bub{position:absolute;left:calc(1403 / 2576 * 100%);top:calc(681 / 1438 * 100%);width:calc(40 / 2576 * 100%);aspect-ratio:1;transform-origin:0% 50%;opacity:0;pointer-events:none;animation:bub 14s ease-in-out infinite}
+@keyframes bub{0%,4%{transform:scale(0);opacity:0}4.5%{transform:scale(.06);opacity:1}18%{transform:scale(.8)}26%{transform:scale(.97)}29%{transform:scale(1.02)}31.5%{transform:scale(1.07)}32.7%{transform:scale(1.22);opacity:1}33.4%,100%{transform:scale(1.3);opacity:0}}
+.burst{position:absolute;left:calc(1394 / 2576 * 100%);top:calc(669 / 1438 * 100%);width:calc(60 / 2576 * 100%);aspect-ratio:1;opacity:0;pointer-events:none;animation:burst 14s ease-out infinite}
+@keyframes burst{0%,32.4%{opacity:0;transform:scale(.6)}33%{opacity:1;transform:scale(.95)}36%,100%{opacity:0;transform:scale(1.35)}}
+
+/* ===== clock: unstable light, one short burst every 14s ===== */
+.ck{position:absolute;pointer-events:none;
+  left:calc(2318 / 2576 * 100%);top:calc(228 / 1438 * 100%);width:calc(140 / 2576 * 100%);height:calc(102 / 1438 * 100%);
+  background:#0F162A;clip-path:polygon(3.6% 29.4%,89.3% 5.9%,94.3% 70.6%,5.7% 95.1%);opacity:0;animation:flick 14s linear infinite}
+@keyframes flick{0%,58%{opacity:0}58.3%{opacity:.85}58.9%{opacity:0}59.6%{opacity:.55}60.2%{opacity:0}61.2%{opacity:1}63.4%{opacity:1}63.8%{opacity:0}64.8%{opacity:.9}65.2%{opacity:0}100%{opacity:0}}
+
+/* ===== mobile stage: vertical picture 941 x 1672 ===== */
+#stageM{display:none}
+.ptm{position:absolute;pointer-events:none;
+  left:calc(var(--x) / 941 * 100%);top:calc(var(--y) / 1672 * 100%);
+  width:calc(var(--w) / 941 * 100%);height:calc(var(--h) / 1672 * 100%);
+  background-image:url(./assets/e0d3c95399bbc9ce67a31c2b7b92642c.jpg);background-repeat:no-repeat;
+  background-size:calc(941 / var(--w) * 100%) calc(1672 / var(--h) * 100%);
+  background-position:calc(var(--x) / (941 - var(--w)) * 100%) calc(var(--y) / (1672 - var(--h)) * 100%)}
+.mhead-m{animation:mshakem .14s linear infinite alternate}
+@keyframes mshakem{from{transform:translate(-.9%,0)}to{transform:translate(.9%,.4%)}}
+.needle-m{animation:needlem .3s ease-in-out infinite}
+@keyframes needlem{0%,100%{transform:translateY(0)}50%{transform:translateY(22%)}}
+.ckm{position:absolute;pointer-events:none;left:calc(854 / 941 * 100%);top:calc(450 / 1672 * 100%);width:calc(74 / 941 * 100%);height:calc(64 / 1672 * 100%);background:#0B1328;clip-path:polygon(2.7% 25%,97% 3%,98.6% 78%,4% 97%);opacity:0;animation:flick 14s linear infinite}
+
+/* ===== coffee steam ===== */
+.steam path{fill:none;stroke:#F4EEE4;stroke-width:2.8;stroke-linecap:round;opacity:0;animation:steam 4.2s ease-out infinite}
+.steam path:nth-child(2){animation-delay:-1.4s}
+.steam path:nth-child(3){animation-delay:-2.8s}
+@keyframes steam{0%{opacity:0;transform:translate(0,5px) scaleY(.7)}18%{opacity:.7}60%{opacity:.4;transform:translate(2px,-10px) scaleY(1)}100%{opacity:0;transform:translate(-1.5px,-22px) scaleY(1.15)}}
+
+/* ===== dock: Apple-style lift + neighbour magnification ===== */
+.dk{width:112px;min-height:112px;box-sizing:border-box;flex:0 0 112px;transition:transform .22s cubic-bezier(.2,.9,.3,1.25),background .2s;transform-origin:50% 100%}
+.dk:hover,.dk:focus-visible{transform:translateY(-6px) scale(1.03);background:rgba(255,255,255,.16) !important;outline:none}
+.dk:active{transform:translateY(-3px) scale(1.01)}
+.dk:hover + .dk,.dk:has(+ .dk:hover){transform:translateY(-3px) scale(1.02)}
+.dk img{transition:filter .2s}
+.dk:hover img,.dk:focus-visible img{filter:drop-shadow(0 10px 8px rgba(0,0,0,.5))}
+.dock-shell{padding:16px 10px 8px;border:1px solid rgba(255,255,255,.16);border-radius:25px;background:rgba(17,19,30,.56);box-shadow:0 14px 36px rgba(0,0,0,.34);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.dock-shell{max-width:calc(100vw - 24px);overflow-x:auto;scrollbar-width:none}.dock-shell::-webkit-scrollbar{display:none}
+.lead-form input{width:100%;box-sizing:border-box;min-height:48px;padding:0 14px;border-radius:12px;border:1px solid #454B6D;background:#1B1F33;color:#fff;font:500 15px 'DM Sans',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s}
+.lead-form input:focus{border-color:#FF8DB3;box-shadow:0 0 0 3px rgba(255,141,179,.16)}
+/* ===== artwork to embroidery comparison slider ===== */
+.embroidery-slider-container{position:relative;width:min(100%,max(260px,calc((100dvh - 330px) * var(--ba-k,.992))));aspect-ratio:var(--ba-r,1851/1866);margin:0 auto;overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:#20243A;isolation:isolate;user-select:none;-webkit-user-select:none}
+.embroidery-slider-container .ba-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.img-before-wrapper{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;--ba-c:calc(var(--ba-position,50%) * 1.12 - 6%);-webkit-mask-image:linear-gradient(90deg,#000 calc(var(--ba-c) - 6%),transparent calc(var(--ba-c) + 6%));mask-image:linear-gradient(90deg,#000 calc(var(--ba-c) - 6%),transparent calc(var(--ba-c) + 6%));z-index:2;pointer-events:none}
+.img-before-wrapper .ba-image{z-index:1}
+.ba-label{position:absolute;top:14px;z-index:4;padding:8px 12px;border-radius:999px;background:rgba(20,22,34,.84);border:1px solid rgba(255,255,255,.24);color:#fff;font-size:13px;font-weight:700;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);pointer-events:none}
+.ba-label-before{left:14px}.ba-label-after{right:14px}
+.slider-handle{position:absolute;top:0;bottom:0;left:var(--ba-position,50%);z-index:3;width:0;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;pointer-events:none}
+.handle-line{position:absolute;top:0;bottom:0;width:3px;background:repeating-linear-gradient(180deg,#fff 0 9px,transparent 9px 15px);box-shadow:0 0 8px rgba(0,0,0,.65);border-radius:2px}
+.handle-circle{position:relative;width:48px;height:48px;border:2px solid rgba(20,22,34,.45);border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;color:#14141C;font-size:22px;font-weight:700;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.ba-range{appearance:none;-webkit-appearance:none;position:absolute;inset:0;z-index:5;width:100%;height:100%;margin:0;padding:0;background:transparent;cursor:ew-resize;touch-action:none;opacity:0}
+.ba-range::-webkit-slider-runnable-track{height:100%;background:transparent}
+.ba-range::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:48px;height:100%;background:transparent;border:0}
+.ba-range::-moz-range-track{height:100%;background:transparent}
+.ba-range::-moz-range-thumb{width:48px;height:100%;background:transparent;border:0}
+.embroidery-slider-container:has(.ba-range:focus-visible){outline:3px solid #FF8DB3;outline-offset:3px}
+.ba-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}.ba-tab{appearance:none;cursor:pointer;min-height:40px;padding:0 16px;border-radius:999px;font:700 14px inherit;font-family:inherit;color:#ECE9F5;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22)}.ba-tab-on{background:#FF8DB3;border-color:#FF8DB3;color:#14141C}.ba-tab:focus-visible{outline:3px solid #FF8DB3;outline-offset:2px}
+.ba-tabs{align-items:center}.ba-full{appearance:none;cursor:pointer;min-height:40px;padding:0 14px;border-radius:999px;font:700 14px inherit;font-family:inherit;color:#ECE9F5;background:transparent;border:1px dashed rgba(255,255,255,.4)}
+.embroidery-slider-container:fullscreen{width:min(100vw,calc(100vh * var(--ba-k,1)));height:auto;max-height:100vh;border-radius:0;border:0;margin:auto}
+.embroidery-slider-container:-webkit-full-screen{width:min(100vw,calc(100vh * var(--ba-k,1)));height:auto;max-height:100vh;border-radius:0;border:0;margin:auto}
+.tl{display:inline-flex;gap:8px;align-items:center}.tl button{position:relative;width:14px;height:14px;padding:0;border:0;border-radius:50%;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font:700 11px/1 'DM Sans',sans-serif;color:rgba(0,0,0,.62)}.tl button::before{content:'';position:absolute;inset:-8px}.tl button::after{opacity:0;transition:opacity .12s}.tl:hover button::after,.tl button:focus-visible::after{opacity:1}.tl button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.tl-c{background:#FF6B6B}.tl-c::after{content:'×';font-size:13px}.tl-m{background:#F6C945}.tl-m::after{content:'−';font-size:13px}.tl-x{background:#4ADE80}.tl-x::after{content:'+';font-size:12px}
+.win-min>div:not(:first-child){display:none}
+.win-max{position:fixed!important;inset:0;width:100%!important;max-height:none!important;height:100%;border-radius:0!important;z-index:300}
+.win-min.win-max{height:auto}
+.cmp-big .embroidery-slider-container{width:min(100%,calc((100dvh - 150px) * var(--ba-k,.992)))}
+.ba-slider-hint{margin:0;color:#A7A9C4;font-size:14px;line-height:1.5}
+.social-rail{position:absolute;top:16px;left:16px;z-index:4;display:flex;flex-direction:column;gap:7px}
+.social-link{box-sizing:border-box;display:flex;align-items:center;gap:9px;width:158px;min-height:62px;padding:4px 10px 4px 4px;border:1px solid rgba(255,255,255,.16);border-radius:17px;background:rgba(20,22,34,.72);color:#F3F1F8;text-decoration:none;font-size:13px;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .18s,background .18s}
+.social-link:hover,.social-link:focus-visible{transform:translateX(4px);background:rgba(40,43,62,.94);outline:2px solid #FF8DB3;outline-offset:2px}
+.social-patch{flex:none;width:52px;height:52px;box-sizing:border-box;display:grid;place-items:center;border:2px solid rgba(255,255,255,.76);border-radius:12px;box-shadow:inset 0 0 0 2px rgba(20,22,34,.42),0 3px 8px rgba(0,0,0,.3);background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.08) 0 2px,transparent 2px 5px)}
+.social-patch svg{width:42px;height:42px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.45))}
+.patch-linkedin{background-color:#1769AA}.patch-pinterest{background-color:#BD081C}.patch-instagram{background-color:#C13584;background-image:linear-gradient(135deg,#6C45C4,#D83B78 52%,#F3A33B)}.patch-facebook{background-color:#1877F2}.patch-etsy{background-color:#D66A22}
+.acc{flex:none;background:#20243A;border:1px solid #343A5C;border-radius:14px;overflow:hidden}
+.acc>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:48px;padding:12px 18px;color:#fff;font-weight:700}
+.acc>summary::-webkit-details-marker{display:none}
+.acc>summary::after{content:'+';flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:rgba(255,141,179,.16);color:#FFB2CD;font-size:18px;line-height:1}
+.acc[open]>summary::after{content:'\2212'}
+.acc>summary:focus-visible{outline:3px solid #FF8DB3;outline-offset:-3px}
+.acc[open]{border-color:#5A4A7A}
+.acc-body{margin:0;padding:0 18px 16px;color:#C9CBE0;line-height:1.6;font-size:15px}
+.acc-body ul{margin:8px 0 0;padding-left:18px}
+.order-upload{position:relative;display:flex;align-items:center;gap:14px;min-height:82px;padding:14px;border:1px dashed #737A9D;border-radius:15px;background:#1B1F33;color:#ECE9F5;cursor:pointer;transition:border-color .2s,background .2s}
+.order-upload:hover,.order-upload:focus-within{border-color:#FF8DB3;background:#222740}
+.order-upload input[type=file]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.order-upload-icon{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(255,141,179,.16);color:#FFB2CD}
+.order-upload-copy{display:flex;flex-direction:column;gap:4px;min-width:0}
+.order-upload-copy strong{font-size:15px}.order-upload-copy small{color:#A7A9C4;font-size:12px;font-weight:500}.order-files{overflow:hidden;color:#FFB2CD;font-size:13px;font-weight:700;text-overflow:ellipsis;white-space:nowrap}
+.lead-form select,.lead-form textarea{width:100%;box-sizing:border-box;min-height:48px;padding:0 14px;border-radius:12px;border:1px solid #454B6D;background:#1B1F33;color:#fff;font:500 15px 'DM Sans',sans-serif;outline:none}
+.lead-form select:focus,.lead-form textarea:focus{border-color:#FF8DB3;box-shadow:0 0 0 3px rgba(255,141,179,.16)}
+.lead-form .det-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 14px 14px}
+.lead-form .det-grid label{display:flex;flex-direction:column;gap:6px;color:#D9DAE8;font-size:13px;font-weight:700}
+.lead-form .det-grid .wide{grid-column:1/-1}
+.fmt-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;color:#C9CBE0;font-size:13px}
+.fmt-tag{font-weight:800;font-size:12px;padding:3px 9px;border-radius:999px;background:rgba(255,141,179,.16);color:#FFB2CD}
+.fmt-tag.st{background:rgba(245,217,145,.16);color:#F5D991}
+.fmt-chip{font-weight:700;font-size:12px;padding:3px 8px;border-radius:8px;border:1px solid #454B6D;color:#E8ECF2}
+.consent{display:flex;align-items:flex-start;gap:10px;color:#C9CBE0;font-size:13px;line-height:1.45}
+.consent input{flex:none;width:20px;height:20px;min-height:0;margin:1px 0 0;accent-color:#FF8DB3}
+.consent button{border:0;background:transparent;color:#FFB2CD;font:inherit;text-decoration:underline;cursor:pointer;padding:0}
+.resp-line{margin:0;color:#F5D991;font-size:14px;font-weight:700}
+@media(max-width:760px){.lead-form .det-grid{grid-template-columns:1fr}}
+.order-mail-note{margin:0;color:#A7A9C4;font-size:13px;line-height:1.45}
+@media(max-width:600px){.embroidery-slider-container{border-radius:14px}.ba-label{top:10px;padding:7px 10px;font-size:12px}.ba-label-before{left:10px}.ba-label-after{right:10px}.handle-circle{width:42px;height:42px}.social-rail{top:10px;left:10px;gap:5px}.social-link{width:48px;min-height:48px;padding:2px;justify-content:center;border-radius:14px}.social-link>span:last-child{position:absolute;left:56px;padding:7px 10px;border:1px solid rgba(255,255,255,.16);border-radius:9px;background:rgba(20,22,34,.92);opacity:0;pointer-events:none;transition:opacity .15s}.social-link:hover>span:last-child,.social-link:focus-visible>span:last-child{opacity:1}.social-patch{width:44px;height:44px}.social-patch svg{width:36px;height:36px}}
+
+@media(max-width:760px){
+.mbar{padding:8px 12px!important;gap:8px!important;min-height:0!important}
+.mbar>div:first-child{order:1;flex:1 1 auto}
+.mbar .m-hide{display:none!important}
+.mright{display:contents!important}
+.mright>div:last-child{order:2}
+.mright>button{order:3;flex:1 1 calc(50% - 8px)!important;justify-content:center!important;min-height:42px!important;padding:0 10px!important;font-size:13px!important;white-space:nowrap}
+.mright>button svg,.mright>button img{display:none!important}
+#stage{display:none!important}
+#stageM{display:block!important}
+.toast{top:8px!important;bottom:auto!important;transform:none!important;left:8px!important;right:8px!important;width:auto!important;max-width:none!important;padding:6px!important;border-radius:16px!important}
+.toast button:nth-child(2){display:none!important}
+.toast button:first-child{min-height:56px!important;padding:6px 10px!important}
+.toast button:first-child span:last-child span:first-child{font-size:15px!important}
+.toast button:first-child span:last-child span:last-child{font-size:12px!important}
+.social-rail{top:auto!important;bottom:116px!important;left:50%!important;transform:translateX(-50%);flex-direction:row!important;gap:8px!important}
+.social-link{width:auto!important;min-height:0!important;padding:3px!important;font-size:0!important}
+.social-link:hover,.social-link:focus-visible{transform:none}
+.social-patch{width:42px!important;height:42px!important}.social-patch svg{width:34px!important;height:34px!important}
+.dock-wrap{bottom:8px!important;padding:0 8px!important}
+.dock-shell{padding:8px 6px 4px!important;gap:4px!important;width:100%;max-width:100%!important;justify-content:space-between!important}
+.dk{width:auto!important;flex:1 1 0!important;min-width:0!important;max-width:none!important;min-height:84px!important;padding:6px 2px!important;box-sizing:border-box}
+.dk>span:first-child{width:46px!important;height:46px!important;margin:0 auto}
+.dk>span:first-child img{width:100%!important;height:100%!important;margin:0!important}
+.dk:nth-child(4)>span:first-child img{transform:scale(1.12)}
+.dk>span:last-child{font-size:11px!important;min-height:26px!important}
+.wins{top:0!important;left:0!important;right:0!important;bottom:0!important}
+.wins [role=dialog]{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;max-height:none!important;border-radius:0!important;z-index:300}
+.wins [role=dialog]>div:last-child{padding:16px!important}
+.tl-m,.tl-x,.ba-full{display:none!important}
+.tl button{width:26px;height:26px}.tl-c::after{opacity:1;font-size:17px}
+.embroidery-slider-container{width:min(100%,calc((100dvh - 300px) * var(--ba-k,1)))!important}
+}
+@media (prefers-reduced-motion: reduce){
+  .mhead,.needle,.hw,.ck,.mhead-m,.needle-m,.ckm,.steam path{animation:none !important}
+  .bub{animation:none !important;opacity:1;transform:scale(1)}
+  .burst{animation:none !important;opacity:0}
+  .dk{transition:none}
+}
+</style>
+</helmet>
+
+<div class="app" style="width:100%;height:100vh;height:100dvh;min-height:520px;display:flex;flex-direction:column;overflow:hidden;background:#14161F;font-family:'DM Sans',sans-serif;color:#ECE9F5">
+
+  <!-- ===================== MENU BAR ===================== -->
+  <div class="mbar" style="position:relative;z-index:6;min-height:58px;box-sizing:border-box;padding:6px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 20px;background:linear-gradient(110deg,#1A1D2B,#20243A);color:#fff;font-size:14px;border-bottom:1px solid rgba(255,255,255,.12);box-shadow:0 4px 18px rgba(0,0,0,.18)">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="width:16px;height:16px;border-radius:50%;border:2px dashed #FF8DB3;display:inline-block"></span>
+      <span style="font-weight:700">Micolash Stitch Studio</span>
+      <span class="m-hide" style="color:#B7B9D4;padding-left:10px;border-left:1px solid rgba(255,255,255,.2)">{{t.role}}</span>
+      <div class="m-hide" style="display:flex;flex-wrap:wrap;align-items:center;gap:6px">
+        <sc-for list="{{topLinks}}" as="topLink" hint-placeholder-count="6">
+          <button type="button" onClick="{{topLink.pick}}" style="min-height:34px;padding:0 10px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#ECE9F5;font-weight:700;font-size:12px;cursor:pointer">{{topLink.label}}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div class="mright" style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px">
+      <button type="button" onClick="{{openHow}}" style="display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:0 17px;border-radius:999px;border:1px solid rgba(233,180,76,.85);background:linear-gradient(135deg,rgba(233,180,76,.22),rgba(255,255,255,.06));color:#FFE4A0;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 0 16px rgba(233,180,76,.12)"><span aria-hidden="true" style="font-size:17px;line-height:1">↗</span>{{t.howNav}}</button>
+      <button type="button" onClick="{{openContact}}" style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;border:0;background:{{accent}};color:#14141C;font-weight:700;font-size:14px;cursor:pointer">{{t.cta}}</button>
+      <span class="m-hide" style="display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:#4ADE80;display:inline-block"></span>{{t.status}}</span>
+      <div style="display:flex;align-items:center;gap:2px;background:rgba(255,255,255,.14);border-radius:999px;padding:2px">
+        <button type="button" onClick="{{setEn}}" aria-pressed="{{isEn}}" style="{{enStyle}}">EN</button>
+        <button type="button" onClick="{{setDe}}" aria-pressed="{{isDe}}" style="{{deStyle}}">DE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SCENE (whole picture is always visible) ===================== -->
+  <div class="scene" style="position:relative;z-index:7;width:100%;flex:1 1 auto;min-height:0;container-type:size;overflow:hidden;background:#14161F">
+    <nav class="social-rail" aria-label="{{t.socialLabel}}">
+      <a class="social-link" href="http://www.linkedin.com/in/mykola-osypchuk-356829b1" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn — opens LinkedIn"><span class="social-patch patch-linkedin"><svg viewBox="0 0 48 48" aria-hidden="true"><text x="24" y="35" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" font-weight="800" fill="#fff">in</text></svg></span><span>LinkedIn</span></a>
+      <a class="social-link" href="https://www.pinterest.com/MicolashStitchStudio" target="_blank" rel="noopener noreferrer" aria-label="Pinterest — opens Pinterest"><span class="social-patch patch-pinterest"><svg viewBox="0 0 48 48" aria-hidden="true"><text x="24" y="38" text-anchor="middle" font-family="Georgia,serif" font-size="39" font-weight="700" fill="#fff">P</text></svg></span><span>Pinterest</span></a>
+      <a class="social-link" href="https://www.instagram.com/micolash.stitch.studio/" target="_blank" rel="noopener noreferrer" aria-label="Instagram — opens Instagram"><span class="social-patch patch-instagram"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="8" width="32" height="32" rx="10" fill="none" stroke="#fff" stroke-width="4"></rect><circle cx="24" cy="24" r="8" fill="none" stroke="#fff" stroke-width="4"></circle><circle cx="34" cy="14" r="2.5" fill="#fff"></circle></svg></span><span>Instagram</span></a>
+      <a class="social-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook — opens Facebook"><span class="social-patch patch-facebook"><svg viewBox="0 0 48 48" aria-hidden="true"><text x="24" y="41" text-anchor="middle" font-family="Arial,sans-serif" font-size="43" font-weight="800" fill="#fff">f</text></svg></span><span>Facebook</span></a>
+      <a class="social-link" href="https://www.etsy.com/" target="_blank" rel="noopener noreferrer" aria-label="Etsy — opens Etsy"><span class="social-patch patch-etsy"><svg viewBox="0 0 48 48" aria-hidden="true"><text x="24" y="32" text-anchor="middle" font-family="Georgia,serif" font-size="24" font-weight="700" fill="#fff">Etsy</text></svg></span><span>Etsy</span></a>
+    </nav>
+
+    <div id="stage" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:max(100cqw, calc(100cqh * 2576 / 1438));aspect-ratio:2576/1438;transform:translate(-50%,-50%)">
+      <img src="./assets/85327048f9fb80c8ed957fbe25d9cb64.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none">
+
+      <!-- coffee cup steam -->
+      <svg class="steam layer" viewBox="0 0 2576 1438" width="100%" height="100%" aria-hidden="true">
+        <path d="M1664 822 C1659 813 1669 807 1664 797 C1661 791 1665 786 1665 782" style="transform-box:fill-box;transform-origin:50% 100%"></path>
+        <path d="M1672 822 C1677 813 1667 806 1672 796 C1675 790 1671 785 1672 780" style="transform-box:fill-box;transform-origin:50% 100%"></path>
+        <path d="M1680 823 C1676 814 1684 809 1680 800 C1678 795 1681 790 1680 787" style="transform-box:fill-box;transform-origin:50% 100%"></path>
+      </svg>
+
+      <!-- machine: head trembles, one needle (the 6th) moves -->
+      <div class="pt mhead" style="--x:712;--y:592;--w:162;--h:268"></div>
+      <div class="pt needle" style="--x:802;--y:829;--w:11;--h:31"></div>
+
+      <!-- character: head + headphones turn together -->
+      <div class="layer hw">
+        <div class="pt soft" style="--x:1308;--y:604;--w:118;--h:118"></div>
+      </div>
+
+      <!-- bubblegum -->
+      <div class="bub">
+        <svg viewBox="0 0 54 54" width="100%" height="100%">
+          <circle cx="27" cy="27" r="24" fill="#FF8FB8" stroke="#14141C" stroke-width="2.6"></circle>
+          <circle cx="27" cy="27" r="19" fill="none" stroke="#FFB6D0" stroke-width="2" stroke-opacity=".7"></circle>
+          <path d="M13 21 Q15 13 23 10" stroke="#fff" stroke-opacity=".85" stroke-width="3.2" fill="none" stroke-linecap="round"></path>
+        </svg>
+      </div>
+      <div class="burst">
+        <svg viewBox="-33 -33 66 66" width="100%" height="100%">
+          <path d="M0 -20 V-30 M14 -14 L21 -21 M20 0 H30 M14 14 L21 21 M0 20 V30 M-14 14 L-21 21 M-20 0 H-30 M-14 -14 L-21 -21" stroke="#FF8FB8" stroke-width="3" stroke-linecap="round"></path>
+        </svg>
+      </div>
+
+      <!-- clock -->
+      <div class="ck"></div>
+    </div>
+
+    <div id="stageM" aria-hidden="true" style="position:absolute;left:50%;top:50%;width:max(100cqw, calc(100cqh * 941 / 1672));aspect-ratio:941/1672;transform:translate(-50%,-50%)">
+      <img src="./assets/e0d3c95399bbc9ce67a31c2b7b92642c.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none">
+      <svg class="steam layer" viewBox="0 0 941 1672" width="100%" height="100%" aria-hidden="true">
+        <path d="M697 911 C693 904 701 899 697 891 C695 886 698 882 698 878" style="transform-box:fill-box;transform-origin:50% 100%;stroke-width:1.6"></path>
+        <path d="M702 911 C706 904 698 898 702 890 C704 885 701 881 702 876" style="transform-box:fill-box;transform-origin:50% 100%;stroke-width:1.6"></path>
+        <path d="M707 912 C704 905 710 901 707 894 C705 890 708 886 707 883" style="transform-box:fill-box;transform-origin:50% 100%;stroke-width:1.6"></path>
+      </svg>
+      <div class="ptm mhead-m" style="--x:106;--y:722;--w:126;--h:190"></div>
+      <div class="ptm needle-m" style="--x:170;--y:902;--w:8;--h:30"></div>
+      <div class="ckm"></div>
+    </div>
+
+    <!-- ===================== SMALL OFFER BANNER (below the clock) ===================== -->
+    <sc-if value="{{toastOpen}}" hint-placeholder-val="{{true}}">
+      <div class="toast" role="status" style="position:absolute;top:50cqh;transform:translateY(-50%);right:24px;z-index:4;width:460px;max-width:calc(100% - 48px);box-sizing:border-box;padding:10px;border-radius:20px;background:linear-gradient(135deg,rgba(35,29,49,.97),rgba(20,22,34,.96));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:#fff;display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:6px;box-shadow:0 14px 38px rgba(0,0,0,.48),0 0 26px rgba(255,141,179,.2);border:1px solid rgba(255,141,179,.72)">
+        <button type="button" onClick="{{openContact}}" style="appearance:none;border:1px solid rgba(255,255,255,.22);background:linear-gradient(120deg,rgba(255,141,179,.22),rgba(255,141,179,.08));color:#fff;cursor:pointer;min-height:72px;padding:10px 14px;border-radius:14px;display:flex;align-items:center;gap:12px;text-align:left;box-shadow:inset 0 0 0 1px rgba(255,141,179,.12)">
+          <span style="flex:none;width:40px;height:40px;border-radius:12px;background:#FF8DB3;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 16px rgba(255,141,179,.3)">
+            <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="4" width="16" height="12" rx="2" fill="none" stroke="#14141C" stroke-width="2"></rect><path d="M3 6 L10 11 L17 6" fill="none" stroke="#14141C" stroke-width="2"></path></svg>
+          </span>
+          <span style="display:flex;flex-direction:column;line-height:1.25">
+            <span style="font-weight:800;font-size:17px;line-height:1.2">{{t.toastTitle}}</span>
+            <span style="font-size:14px;color:#D6D5E4">{{t.toastText}}</span>
+          </span>
+        </button>
+        <button type="button" onClick="{{snoozeToast}}" style="appearance:none;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#E3E2EE;cursor:pointer;min-height:40px;padding:0 12px;border-radius:12px;font-weight:700;font-size:13px">{{t.later}}</button>
+        <button type="button" onClick="{{closeToast}}" aria-label="{{t.close}}" style="appearance:none;border:0;background:transparent;color:#fff;cursor:pointer;width:36px;height:40px;border-radius:10px;font-size:22px">×</button>
+      </div>
+    </sc-if>
+
+    <!-- ===================== DOCK ===================== -->
+    <div class="dock-wrap" style="position:absolute;left:0;right:0;bottom:16px;z-index:4;display:flex;justify-content:center;pointer-events:none;padding:0 12px">
+      <div class="dock-shell" style="pointer-events:auto;display:flex;flex-wrap:nowrap;justify-content:center;align-items:stretch;gap:8px">
+        <sc-for list="{{dock}}" as="d" hint-placeholder-count="4">
+          <button type="button" class="dk" onClick="{{d.pick}}" aria-label="{{d.label}}" style="{{d.style}}">
+            <span style="display:block;width:60px;height:60px">
+              <sc-if value="{{d.isAbout}}" hint-placeholder-val="{{false}}">
+                <img src="./assets/7015749976adc6f18ce9dacea4be2a74.png" alt="" width="60" height="60" style="display:block;width:60px;height:60px">
+              </sc-if>
+              <sc-if value="{{d.isWorks}}" hint-placeholder-val="{{false}}">
+                <img src="./assets/2db3474dd83dc008413b77b8525d498c.png" alt="" width="60" height="60" style="display:block;width:60px;height:60px">
+              </sc-if>
+              <sc-if value="{{d.isPrices}}" hint-placeholder-val="{{false}}">
+                <img src="./assets/c50bc0c6f09d253034b48694b7ebf952.png" alt="" width="60" height="60" style="display:block;width:60px;height:60px">
+              </sc-if>
+              <sc-if value="{{d.isCompare}}" hint-placeholder-val="{{false}}">
+                <img src="./assets/24b950e35aa0ed92f76a4b50237b5fc9.png" alt="" width="76" height="76" style="display:block;width:76px;height:76px;margin:-8px;object-fit:contain">
+              </sc-if>
+              <sc-if value="{{d.isContact}}" hint-placeholder-val="{{false}}">
+                <img src="./assets/c3d8fb4c38a3efb2a2f9946944c42ec9.png" alt="" width="60" height="60" style="display:block;width:60px;height:60px">
+              </sc-if>
+            </span>
+            <span style="display:flex;align-items:center;justify-content:center;width:100%;min-height:32px;font-size:12px;font-weight:700;text-align:center;white-space:normal;line-height:1.15">{{d.label}}</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- ===================== WINDOWS ===================== -->
+    <div class="wins" style="position:absolute;top:12px;left:16px;right:16px;bottom:128px;z-index:5;display:flex;align-items:center;justify-content:center;pointer-events:none">
+
+      <sc-if value="{{wAbout}}" hint-placeholder-val="{{false}}">
+        <div role="dialog" class="{{winCls}}" aria-label="{{t.about.title}}" style="pointer-events:auto;width:min(900px,100%);max-height:100%;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:rgba(24,27,42,.98);color:#ECE9F5;border:1px solid rgba(255,255,255,.16);box-shadow:0 32px 90px rgba(0,0,0,.58)">
+          <div style="flex:none;min-height:50px;padding:0 8px 0 18px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(110deg,#252B48,#20243A);border-bottom:1px solid rgba(255,255,255,.08)">
+            <div style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px"><span class="tl"><button type="button" class="tl-c" onClick="{{closeWin}}" aria-label="{{t.close}}"></button><button type="button" class="tl-m" onClick="{{minWin}}" aria-label="{{t.minimize}}"></button><button type="button" class="tl-x" onClick="{{maxWin}}" aria-label="{{t.maximize}}"></button></span><span style="margin-left:8px">{{t.about.title}}</span></div>
+            <button type="button" onClick="{{closeWin}}" style="min-height:44px;padding:0 14px;border:0;background:transparent;font-weight:700;font-size:14px;cursor:pointer;color:#ECE9F5">{{t.close}}</button>
+          </div>
+          <div style="overflow-y:auto;padding:28px;display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+            <div style="flex:1 1 220px;max-width:280px">
+              <div style="aspect-ratio:1/1;border-radius:18px;background:linear-gradient(160deg,#3B4270,#242848);overflow:hidden;display:flex;align-items:flex-end"><img src="./assets/a3ef39a38e1dc72073e937dcd9cac06d.jpg" alt="Micolash Osypchuk" style="display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%"></div>
+            </div>
+            <div style="flex:2 1 320px;min-width:0;display:flex;flex-direction:column;gap:16px">
+              <h2 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(26px,3.2vw,36px);line-height:1.1;color:#fff">{{t.about.h}}</h2>
+              <p style="margin:0;color:#C9CBE0;line-height:1.55">{{t.about.p1}}</p>
+              <p style="margin:0;color:#C9CBE0;line-height:1.55">{{t.about.p2}}</p>
+              <p style="margin:0;color:#C9CBE0;line-height:1.55">{{t.about.p3}}</p>
+              <p style="margin:0;color:#C9CBE0;line-height:1.55">{{t.about.p4}}</p>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{wWorks}}" hint-placeholder-val="{{false}}">
+        <div role="dialog" class="{{winCls}}" aria-label="{{t.works.title}}" style="pointer-events:auto;width:min(980px,100%);max-height:100%;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:rgba(24,27,42,.98);color:#ECE9F5;border:1px solid rgba(255,255,255,.16);box-shadow:0 32px 90px rgba(0,0,0,.58)">
+          <div style="flex:none;min-height:50px;padding:0 8px 0 18px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(110deg,#252B48,#20243A);border-bottom:1px solid rgba(255,255,255,.08)">
+            <div style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px"><span class="tl"><button type="button" class="tl-c" onClick="{{closeWin}}" aria-label="{{t.close}}"></button><button type="button" class="tl-m" onClick="{{minWin}}" aria-label="{{t.minimize}}"></button><button type="button" class="tl-x" onClick="{{maxWin}}" aria-label="{{t.maximize}}"></button></span><span style="margin-left:8px">{{t.works.title}}</span></div>
+            <button type="button" onClick="{{closeWin}}" style="min-height:44px;padding:0 14px;border:0;background:transparent;font-weight:700;font-size:14px;cursor:pointer;color:#ECE9F5">{{t.close}}</button>
+          </div>
+          <div style="overflow-y:auto;padding:28px;display:flex;flex-direction:column;gap:24px">
+            <p style="margin:0;color:#C9CBE0">{{t.works.sub}}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{tabs}}" as="tab" hint-placeholder-count="8">
+                <button type="button" onClick="{{tab.pick}}" style="{{tab.style}}">{{tab.label}}</button>
+              </sc-for>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:20px">
+              <sc-for list="{{tiles}}" as="tl" hint-placeholder-count="6">
+                <div style="display:flex;flex-direction:column;gap:10px">
+                  <div style="{{tl.thumb}}"><span style="background:#fff;color:#14141C;font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px">{{t.works.addPhoto}}</span></div>
+                  <div style="display:flex;flex-direction:column"><span style="font-weight:700;font-size:16px;color:#fff">{{tl.title}}</span><span style="color:#A7A9C4;font-size:14px">{{tl.catLabel}}</span></div>
+                </div>
+              </sc-for>
+            </div>
+
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{wCompare}}" hint-placeholder-val="{{false}}">
+        <div role="dialog" class="{{winCls}}" aria-label="{{t.works.closeH}}" style="pointer-events:auto;width:min(1700px,100%);max-height:100%;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:rgba(24,27,42,.98);color:#ECE9F5;border:1px solid rgba(255,255,255,.16);box-shadow:0 32px 90px rgba(0,0,0,.58)">
+          <div style="flex:none;min-height:50px;padding:0 8px 0 18px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(110deg,#252B48,#20243A);border-bottom:1px solid rgba(255,255,255,.08)">
+            <div style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px"><span class="tl"><button type="button" class="tl-c" onClick="{{closeWin}}" aria-label="{{t.close}}"></button><button type="button" class="tl-m" onClick="{{minWin}}" aria-label="{{t.minimize}}"></button><button type="button" class="tl-x" onClick="{{maxWin}}" aria-label="{{t.maximize}}"></button></span><span style="margin-left:8px">{{t.works.closeH}}</span></div>
+            <button type="button" onClick="{{closeWin}}" style="min-height:44px;padding:0 14px;border:0;background:transparent;font-weight:700;font-size:14px;cursor:pointer;color:#ECE9F5">{{t.close}}</button>
+          </div>
+          <div style="overflow-y:auto;padding:12px 16px 14px;display:flex;flex-direction:column;gap:10px">
+            <div class="ba-tabs" role="group" aria-label="{{t.works.exAria}}">
+              <sc-for list="{{exTabs}}" as="x" hint-placeholder-count="3">
+                <button type="button" class="{{x.cls}}" aria-pressed="{{x.pressed}}" onClick="{{x.pick}}">{{x.label}}</button>
+              </sc-for>
+              <button type="button" class="ba-full" onClick="{{goFull}}">{{t.works.full}}</button>
+            </div>
+            <div class="embroidery-slider-container" style="{{exStyle}}" aria-label="{{t.works.sliderAria}}">
+              <img src="{{exAfter}}" alt="" class="ba-image img-after">
+              <div class="img-before-wrapper"><img src="{{exBefore}}" alt="" class="ba-image img-before"></div>
+              <div class="ba-label ba-label-before">{{exLabelBefore}}</div>
+              <div class="ba-label ba-label-after">{{exLabelAfter}}</div>
+              <div class="slider-handle" aria-hidden="true"><span class="handle-line"></span><span class="handle-circle">↔</span></div>
+              <input class="ba-range" type="range" min="0" max="100" step="1" value="{{sliderPosition}}" onInput="{{setSliderPosition}}" aria-label="{{t.works.sliderAria}}">
+            </div>
+            <p class="ba-slider-hint">{{exHint}}</p>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{wPrices}}" hint-placeholder-val="{{false}}">
+        <div role="dialog" class="{{winCls}}" aria-label="{{t.prices.title}}" style="pointer-events:auto;width:min(980px,100%);max-height:100%;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:rgba(24,27,42,.98);color:#ECE9F5;border:1px solid rgba(255,255,255,.16);box-shadow:0 32px 90px rgba(0,0,0,.58)">
+          <div style="flex:none;min-height:50px;padding:0 8px 0 18px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(110deg,#252B48,#20243A);border-bottom:1px solid rgba(255,255,255,.08)">
+            <div style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px"><span class="tl"><button type="button" class="tl-c" onClick="{{closeWin}}" aria-label="{{t.close}}"></button><button type="button" class="tl-m" onClick="{{minWin}}" aria-label="{{t.minimize}}"></button><button type="button" class="tl-x" onClick="{{maxWin}}" aria-label="{{t.maximize}}"></button></span><span style="margin-left:8px">{{t.prices.title}}</span></div>
+            <button type="button" onClick="{{closeWin}}" style="min-height:44px;padding:0 14px;border:0;background:transparent;font-weight:700;font-size:14px;cursor:pointer;color:#ECE9F5">{{t.close}}</button>
+          </div>
+          <div style="overflow-y:auto;padding:28px;display:flex;flex-direction:column;gap:28px">
+            <p style="margin:0;color:#C9CBE0">{{t.prices.intro}}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:16px">
+              <sc-for list="{{t.prices.cards}}" as="c" hint-placeholder-count="3">
+                <div style="flex:1 1 220px;background:#232844;border:1px solid #343A5C;border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:8px">
+                  <div style="font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#A7A9C4">{{c.k}}</div>
+                  <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:40px;line-height:1;color:#E9B44C">{{c.price}}</div>
+                  <div style="color:#C9CBE0;font-size:15px">{{c.d}}</div>
+                  <details class="acc" style="margin-top:6px;background:#1B1F33">
+                    <summary style="min-height:44px;padding:8px 14px;font-size:14px">{{t.prices.more}}</summary>
+                    <p class="acc-body" style="padding:0 14px 14px;font-size:14px">{{c.more}}</p>
+                  </details>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px 28px;border-top:2px dashed #3E456E;padding-top:20px;font-size:15px;color:#C9CBE0">
+              <sc-for list="{{t.prices.facts}}" as="f" hint-placeholder-count="3">
+                <div style="flex:1 1 230px"><strong style="color:#fff">{{f.k}}</strong><br>{{f.d}}</div>
+              </sc-for>
+            </div>
+            <div style="background:#0F766E;color:#fff;border-radius:16px;padding:20px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px">
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(20px,2.4vw,26px)">{{t.prices.delivery}}</div>
+              <div style="font-size:16px">{{t.prices.rush}}</div>
+            </div>
+           </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{wContact}}" hint-placeholder-val="{{false}}">
+        <div role="dialog" class="{{winCls}}" aria-label="{{t.contact.title}}" style="pointer-events:auto;width:min(800px,100%);max-height:100%;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:rgba(24,27,42,.98);color:#ECE9F5;border:1px solid rgba(255,255,255,.16);box-shadow:0 32px 90px rgba(0,0,0,.58)">
+          <div style="flex:none;min-height:50px;padding:0 8px 0 18px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(110deg,#252B48,#20243A);border-bottom:1px solid rgba(255,255,255,.08)">
+            <div style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px"><span class="tl"><button type="button" class="tl-c" onClick="{{closeWin}}" aria-label="{{t.close}}"></button><button type="button" class="tl-m" onClick="{{minWin}}" aria-label="{{t.minimize}}"></button><button type="button" class="tl-x" onClick="{{maxWin}}" aria-label="{{t.maximize}}"></button></span><span style="margin-left:8px">{{t.contact.title}}</span></div>
+            <button type="button" onClick="{{closeWin}}" style="min-height:44px;padding:0 14px;border:0;background:transparent;font-weight:700;font-size:14px;cursor:pointer;color:#E8ECF2">{{t.close}}</button>
+          </div>
+          <div style="overflow-y:auto;padding:32px;display:flex;flex-direction:column;gap:20px">
+            <h2 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(26px,3.4vw,38px);line-height:1.1;color:#fff">{{t.contact.h}}</h2>
+            <p style="margin:0;color:#A9B4C4;line-height:1.55">{{t.contact.p}}</p>
+            <div style="display:flex;flex-direction:column;gap:8px;max-width:520px">
+              <sc-for list="{{t.contact.pre}}" as="qa" hint-placeholder-count="3">
+                <details class="acc">
+                  <summary style="min-height:44px;padding:8px 14px;font-size:14px">{{qa.q}}</summary>
+                  <p class="acc-body" style="padding:0 14px 14px;font-size:14px">{{qa.a}}</p>
+                </details>
+              </sc-for>
+            </div>
+            <div class="fmt-row"><span class="fmt-tag">{{t.contact.fmtVec}}</span><span class="fmt-chip">AI</span><span class="fmt-chip">EPS</span><span class="fmt-chip">SVG</span><span class="fmt-chip">PDF</span></div>
+            <div class="fmt-row"><span class="fmt-tag st">{{t.contact.fmtStitch}}</span><span class="fmt-chip">DST</span><span class="fmt-chip">PES</span><span class="fmt-chip">EXP</span><span class="fmt-chip">JEF</span><span>{{t.contact.fmtMore}}</span></div>
+            <details class="acc" style="max-width:520px">
+              <summary style="min-height:44px;padding:8px 14px;font-size:14px">{{t.contact.rulesH}}</summary>
+              <div class="acc-body" style="padding:0 14px 14px;font-size:14px">
+                <p style="margin:0 0 6px">{{t.contact.rulesIntro}}</p>
+                <ul>
+                  <sc-for list="{{t.contact.rules}}" as="r" hint-placeholder-count="5"><li>{{r.x}}</li></sc-for>
+                </ul>
+              </div>
+            </details>
+            <form class="lead-form" onsubmit="return false" style="display:flex;flex-direction:column;gap:14px;max-width:520px">
+              <label style="display:flex;flex-direction:column;gap:7px;color:#D9DAE8;font-size:14px;font-weight:700">
+                {{t.contact.companyField}}
+                <input type="text" name="company" autocomplete="organization">
+              </label>
+              <label style="display:flex;flex-direction:column;gap:7px;color:#D9DAE8;font-size:14px;font-weight:700">
+                {{t.contact.nameField}}
+                <input type="text" name="name" autocomplete="name" required="">
+              </label>
+              <label style="display:flex;flex-direction:column;gap:7px;color:#D9DAE8;font-size:14px;font-weight:700">
+                {{t.contact.emailField}}
+                <input type="email" name="email" autocomplete="email" required="">
+              </label>
+              <label class="order-upload">
+                <input type="file" name="artwork" accept="image/*,.pdf,.svg,.ai,.eps,.cdr,.dst,.pes,.emb,.jef,.vp3,.hus,.exp" multiple="" required="" onChange="{{selectOrderFiles}}" aria-label="{{t.contact.upload}}">
+                <span class="order-upload-icon" aria-hidden="true">↥</span>
+                <span class="order-upload-copy"><strong>{{t.contact.upload}}</strong><small>{{t.contact.uploadHint}}</small><span class="order-files">{{orderFilesText}}</span></span>
+              </label>
+              <details class="acc">
+                <summary style="min-height:44px;padding:8px 14px;font-size:14px">{{t.contact.detH}}</summary>
+                <div class="det-grid">
+                  <label>{{t.contact.fType}}
+                    <select name="work_type">
+                      <option value="">—</option>
+                      <option value="{{t.contact.types.0.v}}">{{t.contact.types.0.v}}</option><option value="{{t.contact.types.1.v}}">{{t.contact.types.1.v}}</option><option value="{{t.contact.types.2.v}}">{{t.contact.types.2.v}}</option><option value="{{t.contact.types.3.v}}">{{t.contact.types.3.v}}</option><option value="{{t.contact.types.4.v}}">{{t.contact.types.4.v}}</option><option value="{{t.contact.types.5.v}}">{{t.contact.types.5.v}}</option>
+                    </select>
+                  </label>
+                  <label>{{t.contact.fFormat}}
+                    <input type="text" name="desired_format" placeholder="DST, PES, JEF …">
+                  </label>
+                  <label>{{t.contact.fSize}}
+                    <input type="text" name="size_placement" placeholder="{{t.contact.fSizePh}}">
+                  </label>
+                  <label>{{t.contact.fFabric}}
+                    <input type="text" name="fabric_garment" placeholder="{{t.contact.fFabricPh}}">
+                  </label>
+                  <label class="wide">{{t.contact.fDeadline}}
+                    <input type="text" name="deadline" placeholder="{{t.contact.fDeadlinePh}}">
+                  </label>
+                </div>
+              </details>
+              <p class="order-mail-note">{{t.contact.mailNote}}</p>
+              <div class="consent"><input type="checkbox" name="consent" value="yes" required="" aria-label="{{t.contact.consent}}"><span>{{t.contact.consent}} <button type="button" onClick="{{openPrivacy}}">{{t.contact.consentLink}}</button></span></div>
+              <p class="resp-line">{{t.contact.resp}}</p>
+              <p class="order-mail-note" role="status" style="color:#F5D991;font-weight:700">{{orderStatusText}}</p>
+              <a href="mailto:osypchuk.mykola96@gmail.com" onClick="{{sendMail}}" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;align-self:flex-start;min-height:52px;padding:0 22px;border-radius:14px;border:0;background:{{accent}};color:#14141C;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 8px 20px rgba(255,141,179,.22)">{{t.contact.submit}}</a>
+            </form>
+            <div style="display:flex;flex-wrap:wrap;gap:10px 14px">
+              <a href="mailto:osypchuk.mykola96@gmail.com" style="display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;border:2px solid #3A4A63;color:#E8ECF2;font-weight:700;font-size:15px">osypchuk.mykola96@gmail.com</a>
+              <a href="https://wa.me/4917659625835" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;border:2px solid #3A4A63;color:#E8ECF2;font-weight:700;font-size:15px">WhatsApp +49 176 59625835</a>
+            </div>
+            <div style="border-top:2px dashed #3A4A63;padding-top:16px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;color:#A9B4C4;font-size:14px">
+              <span>{{t.contact.copy}}</span>
+              <button type="button" onClick="{{openLegal}}" style="border:0;background:transparent;color:#A9B4C4;font:inherit;text-decoration:underline;cursor:pointer">{{t.legalNav}}</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{wHow}}" hint-placeholder-val="{{false}}">
+        <div role="dialog" class="{{winCls}}" aria-label="{{t.prices.stepsH}}" style="pointer-events:auto;width:min(980px,100%);max-height:100%;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:rgba(24,27,42,.99);color:#ECE9F5;border:1px solid rgba(255,255,255,.16);box-shadow:0 32px 90px rgba(0,0,0,.58)">
+          <div style="flex:none;min-height:50px;padding:0 8px 0 18px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(110deg,#252B48,#20243A);border-bottom:1px solid rgba(255,255,255,.08)">
+            <div style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px"><span class="tl"><button type="button" class="tl-c" onClick="{{closeWin}}" aria-label="{{t.close}}"></button><button type="button" class="tl-m" onClick="{{minWin}}" aria-label="{{t.minimize}}"></button><button type="button" class="tl-x" onClick="{{maxWin}}" aria-label="{{t.maximize}}"></button></span><span style="margin-left:8px">{{t.prices.stepsH}}</span></div>
+            <button type="button" onClick="{{closeWin}}" style="min-height:44px;padding:0 14px;border:0;background:transparent;color:#ECE9F5;font-weight:700;font-size:14px;cursor:pointer">{{t.close}}</button>
+          </div>
+          <div style="overflow-y:auto;padding:28px;display:flex;flex-direction:column;gap:16px">
+            <sc-for list="{{t.prices.steps}}" as="s" hint-placeholder-count="4">
+              <article style="display:flex;align-items:flex-start;gap:18px;padding:20px;border-radius:16px;border:1px solid #343A5C;background:#20243A">
+                <div style="flex:none;width:48px;height:48px;border-radius:50%;border:3px dashed {{accent}};display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px;color:#fff">{{s.n}}</div>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <strong style="font-size:18px;color:#fff">{{s.k}}</strong>
+                  <span style="color:#C9CBE0;font-size:15px;line-height:1.55">{{s.d}}</span>
+                </div>
+              </article>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{wFaq}}" hint-placeholder-val="{{false}}">
+        <div role="dialog" class="{{winCls}}" aria-label="{{t.prices.faqH}}" style="pointer-events:auto;width:min(900px,100%);max-height:100%;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:rgba(24,27,42,.99);color:#ECE9F5;border:1px solid rgba(255,255,255,.16);box-shadow:0 32px 90px rgba(0,0,0,.58)">
+          <div style="flex:none;min-height:50px;padding:0 8px 0 18px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(110deg,#252B48,#20243A);border-bottom:1px solid rgba(255,255,255,.08)">
+            <div style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px"><span class="tl"><button type="button" class="tl-c" onClick="{{closeWin}}" aria-label="{{t.close}}"></button><button type="button" class="tl-m" onClick="{{minWin}}" aria-label="{{t.minimize}}"></button><button type="button" class="tl-x" onClick="{{maxWin}}" aria-label="{{t.maximize}}"></button></span><span style="margin-left:8px">{{t.prices.faqH}}</span></div>
+            <button type="button" onClick="{{closeWin}}" style="min-height:44px;padding:0 14px;border:0;background:transparent;color:#ECE9F5;font-weight:700;font-size:14px;cursor:pointer">{{t.close}}</button>
+          </div>
+          <div style="overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{t.prices.faq}}" as="qa" hint-placeholder-count="5">
+              <details class="acc">
+                <summary>{{qa.q}}</summary>
+                <p class="acc-body">{{qa.a}}</p>
+              </details>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{wLegal}}" hint-placeholder-val="{{false}}">
+        <div role="dialog" class="{{winCls}}" aria-label="{{t.legal.title}}" style="pointer-events:auto;width:min(1000px,100%);max-height:100%;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;background:rgba(24,27,42,.99);color:#ECE9F5;border:1px solid rgba(255,255,255,.16);box-shadow:0 32px 90px rgba(0,0,0,.58)">
+          <div style="flex:none;min-height:50px;padding:0 8px 0 18px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(110deg,#252B48,#20243A);border-bottom:1px solid rgba(255,255,255,.08)">
+            <div style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px"><span class="tl"><button type="button" class="tl-c" onClick="{{closeWin}}" aria-label="{{t.close}}"></button><button type="button" class="tl-m" onClick="{{minWin}}" aria-label="{{t.minimize}}"></button><button type="button" class="tl-x" onClick="{{maxWin}}" aria-label="{{t.maximize}}"></button></span><span style="margin-left:8px">{{t.legal.title}}</span></div>
+            <button type="button" onClick="{{closeWin}}" style="min-height:44px;padding:0 14px;border:0;background:transparent;color:#ECE9F5;font-weight:700;font-size:14px;cursor:pointer">{{t.close}}</button>
+          </div>
+          <div style="overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:16px">
+            <div style="padding:12px 16px;border:1px solid rgba(233,180,76,.5);border-radius:12px;background:rgba(233,180,76,.1);color:#F5D991;font-weight:700;line-height:1.45">{{t.legal.draft}}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{legalTabs}}" as="lt" hint-placeholder-count="5">
+                <button type="button" onClick="{{lt.pick}}" style="{{lt.style}}">{{lt.label}}</button>
+              </sc-for>
+            </div>
+            <section style="display:flex;flex-direction:column;gap:14px">
+              <h2 style="margin:0;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(24px,3vw,34px);color:#fff">{{legalPage.title}}</h2>
+              <p style="margin:0;color:#C9CBE0;line-height:1.55">{{legalPage.intro}}</p>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <sc-for list="{{legalPage.items}}" as="item" hint-placeholder-count="5">
+                  <div style="padding:14px 16px;border-radius:12px;border:1px solid #343A5C;background:#20243A">
+                    <strong style="display:block;margin-bottom:5px;color:#fff">{{item.label}}</strong>
+                    <span style="color:#C9CBE0;line-height:1.5">{{item.text}}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </section>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FF8DB3","options":["#FF8DB3","#E9B44C","#7BD3C8","#9DB8FF"]},"$preview":{"width":1440,"height":665}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    try {
+      const l = String(navigator.language || 'en').toLowerCase();
+      if (l.indexOf('de') === 0) this.setState({ lang: 'de' });
+    } catch (e) {}
+    this.escKey = (ev) => { if (ev.key === 'Escape') { const s = this.state || {}; if (s.cmpBig) this.setState({ cmpBig: false }); else if (s.win) { this.stopSweep(); this.setState({ win: null, winMin: false }); } } };
+    try { document.addEventListener('keydown', this.escKey); } catch (e) {}
+
+
+  }
+
+  componentWillUnmount() {
+    try { document.removeEventListener('keydown', this.escKey); } catch (e) {}
+    if (this.snoozeTimer) clearTimeout(this.snoozeTimer);
+    this.stopSweep();
+  }
+
+  stopSweep() {
+    if (this.sweepRaf) { cancelAnimationFrame(this.sweepRaf); this.sweepRaf = 0; }
+  }
+
+  // one gentle demo pass when the window opens: photo -> embroidery -> back to the middle
+  startSweep() {
+    try {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { this.setState({ sliderPosition: 50 }); return; }
+      const keys = [[0, 96], [.5, 6], [1, 50]];
+      const dur = 4200; const t0 = performance.now();
+      const ease = (x) => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+      this.setState({ sliderPosition: 96 });
+      const step = (now) => {
+        const p = Math.min(1, (now - t0) / dur);
+        const seg = p < .5 ? 0 : 1;
+        const a = keys[seg], b = keys[seg + 1];
+        const q = ease((p - a[0]) / (b[0] - a[0]));
+        this.setState({ sliderPosition: Math.round(a[1] + (b[1] - a[1]) * q) });
+        this.sweepRaf = p < 1 ? requestAnimationFrame(step) : 0;
+      };
+      this.sweepRaf = requestAnimationFrame(step);
+    } catch (e) {}
+  }
+
+  dict() {
+    return {
+      en: {
+        role: 'Embroidery digitizing · Wilcom',
+        place: 'Nürnberg',
+        status: 'Available for projects',
+        cta: '1 free test design',
+        toastTitle: '1 free test design',
+        toastText: 'for your studio',
+        later: 'Later',
+        close: 'Close',
+        minimize: 'Minimize window',
+        maximize: 'Enlarge window',
+        socialLabel: 'Social media links',
+        legalNav: 'Legal',
+        faqNav: 'FAQ',
+        howNav: 'How it works',
+        legal: {
+          title: 'Legal information',
+          draft: 'DRAFT — complete the marked details and verify the legal wording before publishing.',
+          tabs: { impressum: 'Impressum', privacy: 'Privacy notice', terms: 'Terms (optional)', withdrawal: 'Withdrawal', cookies: 'Cookies' },
+          pages: {
+            impressum: { title: 'Impressum', intro: 'Complete the operator details before the site is used to offer paid services publicly.', items: [
+              { label: 'Legal name', text: '[TO FILL: your full legal first and last name. Micolash Stitch Studio is the studio name, not a substitute for the operator name.]' },
+              { label: 'Studio name and address', text: 'Micolash Stitch Studio. [TO FILL: street, house number, postal code and city; this address will be public.]' },
+              { label: 'Contact', text: 'Email: osypchuk.mykola96@gmail.com · WhatsApp: +49 176 59625835' },
+              { label: 'Registration and tax details', text: '[TO CHECK before launch: add any commercial register number or VAT ID if applicable; otherwise use the legally appropriate statement or omit the field.]' },
+              { label: 'Consumer dispute resolution', text: '[TO CHECK: add the VSBG participation statement if applicable. The participation statement has an exception for businesses with ten or fewer employees in the previous year.]' }
+            ] },
+            privacy: { title: 'Privacy notice', intro: 'This page must describe the actual hosting, forms, email and any third-party services used by the published site.', items: [
+              { label: 'Controller', text: '[TO FILL: your full legal name, public address and contact details.]' },
+              { label: 'Hosting and server logs', text: '[TO FILL: hosting provider, server-log data, purpose, legal basis and retention period.]' },
+              { label: 'Order enquiries and artwork', text: 'The order form sends the entered name, email, optional company and any attached artwork files to the form service Formspree (formspree.io), which forwards them to my email. If sending fails, the visitor\u2019s email app opens instead. [TO FILL: Formspree data-processing details, retention period and handling procedure.]' },
+              { label: 'External fonts and social links', text: 'The page currently requests Google Fonts from Google. Social icons are ordinary external links and open the social platform only when clicked. [Decide whether to self-host fonts and describe the final setup.]' },
+              { label: 'Data protection information', text: '[TO FILL: purposes and legal bases, recipients, any transfers outside the EEA, storage periods, data-subject rights, supervisory authority and DPO details if applicable.]' }
+            ] },
+            terms: { title: 'Terms and service conditions', intro: 'AGB are optional for this type of site, but useful if you want written terms. Draft them for both private customers and businesses; do not copy another studio’s terms.', items: [
+              { label: 'Service and contract', text: '[TO FILL: what is included, when a request becomes a binding order, quote approval and start of work.]' },
+              { label: 'Price, payment and delivery', text: '[TO FILL: payment method and timing, delivery time, file formats, PDF and vector outputs.]' },
+              { label: 'Revisions and usage rights', text: 'Unlimited revisions are offered. [TO FILL: scope of revisions, copyright/licence for the embroidery files, customer rights to supplied artwork.]' },
+              { label: 'Cancellation and liability', text: '[TO FILL: rules for cancellations, consumer withdrawal rights, and proportionate liability terms; review for German consumer law.]' }
+            ] },
+            withdrawal: { title: 'Withdrawal information and form', intro: 'This is especially relevant for consumers ordering at a distance. The correct wording depends on whether the order is a service, a digital file, or both.', items: [
+              { label: 'Consumer right of withdrawal', text: '[TO FILL after legal review: whether a withdrawal right applies, deadline, how to exercise it, and the model withdrawal form. A custom-made embroidery file does not automatically remove the right.]' },
+              { label: 'Starting work early', text: '[TO CHECK: if work begins during a withdrawal period, obtain any legally required express request and acknowledgement before starting.]' },
+              { label: 'Online withdrawal function', text: 'A prominent online withdrawal function is required for qualifying distance contracts concluded through an online interface. This site currently prepares an email enquiry rather than providing checkout; reassess if online ordering or payment is added.' },
+              { label: 'Model form fields', text: '[Prepare a form for customer name, contract/order reference, service or file, order date, withdrawal date and signature when applicable.]' }
+            ] },
+            cookies: { title: 'Cookies and consent settings', intro: 'Consent is not automatically needed for every cookie; it depends on what the published site stores or accesses on a visitor’s device.', items: [
+              { label: 'Current source review', text: 'No analytics or advertising trackers are configured in this page’s source. Google Fonts are loaded externally. Recheck the final host, embeds and plugins before launch.' },
+              { label: 'When a consent banner is needed', text: '[If non-essential analytics, advertising or other device storage/access is added, configure prior consent, a reject option and a way to change preferences. If only strictly necessary technologies are used, document that setup instead.]' },
+              { label: 'Cookie settings link', text: '[Add a functional settings link only if the site uses a consent manager or non-essential cookies.]' }
+            ] }
+          }
+        },
+        dock: ['About', 'Works', 'Process & prices', 'Contact & Order', 'Photo → stitch'],
+        about: {
+          title: 'About',
+          h: 'Hello and welcome to Micolash Stitch Studio!',
+          p1: 'Thank you for visiting my studio. Micolash Stitch Studio is a professional embroidery digitizing studio, specializing in high-quality digitizing services and premium embroidery design files. I strive to provide exceptional service and ensure every client is satisfied.',
+          p2: 'I have been developing designs and working with machine embroidery for 3 years. I approach every project with precision and attention to detail. I use manual digitizing to achieve excellent stitch quality and accurately reproduce each design.',
+          p3: 'My designs reflect the artistry and complexity of the original images. I create each design with care, focusing on visual appeal, colors, and precise details—where creativity meets thread.',
+          p4: 'It matters to me that every project reflects the client’s idea, preserves the character of the original, and looks harmonious as finished embroidery. I value your trust. Thank you for choosing Micolash Stitch Studio! With appreciation, Micolash.',
+          portrait: 'Add portrait'
+        },
+        works: {
+          title: 'Works',
+          sub: 'A selection by theme and size.',
+          addPhoto: 'Add photo',
+          tabs: { all: 'All', text: 'Lettering', logo: 'Logos', small: 'Small', large: 'Large', cap: 'Caps & hats', kids: 'Kids & names', gaming: 'Gaming' },
+          items: ['Script lettering', 'Company logo for the chest', 'Small design with fine detail', 'Back design, large area', 'Design for a cap front', 'Name with a kids motif', 'Gaming motif', 'Club crest', 'Multicolor illustration', 'Initials and monogram'],
+          closeH: 'From client photo to embroidery',
+          artwork: 'Artwork',
+          stitched: 'Stitched, close-up',
+          sliderBefore: 'Client photo',
+          sliderAfter: 'My embroidery design',
+          sliderAria: 'Compare source design and machine embroidery',
+          sliderHint: 'Drag the line: on the left the photo I received from a client, on the right the embroidery I digitized from it.',
+          exAria: 'Choose an example',
+          full: '⤢ Full screen',
+          ex: [
+            { tab: 'Car', before: 'Client photo', after: 'My embroidery design', hint: 'Drag the line: on the left the photo I received from a client, on the right the embroidery I digitized from it.' },
+            { tab: 'Logo', before: 'Vector logo', after: 'My embroidery design', hint: 'Drag the line: on the left the client\'s vector logo, on the right the embroidery I digitized from it.' },
+            { tab: 'Digitized photo', before: 'Client photo', after: 'My embroidery design', hint: 'Drag the line: on the left a photo with people, on the right my digitized embroidery of it, including the logo.' }
+          ]
+        },
+        prices: {
+          title: 'Process & prices',
+          intro: 'Guide prices per design. The fixed price follows once I have seen your artwork.',
+          more: 'What is included',
+          cards: [
+            { k: 'Lettering', price: '€8', d: 'Names, captions, initials and slogans.', more: 'Digitizing in Wilcom, any machine format plus a technical PDF sheet, unlimited corrections until you are satisfied.' },
+            { k: 'Logos', price: '€8–12', d: 'Company logos, club crests and chest logos.', more: 'The price within the range depends on the number of details and colors. Any machine format plus a technical PDF sheet, unlimited corrections.' },
+            { k: 'Artwork', price: 'from €15', d: 'Pictures and illustrations. Usually about €20 for a standard design; the price depends on complexity, detail and size.', more: 'Complexity, level of detail and design size set the price. I confirm it before I start. Any machine format plus a technical PDF sheet, unlimited corrections.' }
+          ],
+          facts: [
+            { k: '1 free test design', d: 'Try me before we work together.' },
+            { k: 'Any format', d: 'Whatever format your machine needs, plus a technical PDF sheet.' },
+            { k: 'Corrections', d: 'Unlimited, until you are fully satisfied.' }
+          ],
+          stepsH: 'How it works',
+          steps: [
+            { n: '1', k: 'Send artwork', d: 'Logo or image, size, fabric and target format by email.' },
+            { n: '2', k: 'Fixed price & approval', d: 'You get the price upfront and approve it.' },
+            { n: '3', k: 'Digitizing', d: 'I digitize in Wilcom and send a preview.' },
+            { n: '4', k: 'Delivery', d: 'Finished file in the right format, ready for your machine.' }
+          ],
+          delivery: 'If there is no queue, an order may be ready within 24 hours. Lettering and simple logos usually take 24–48 hours.',
+          rush: 'Rush delivery can be discussed individually.',
+          faqH: 'Frequently asked questions',
+          faq: [
+            { q: 'What should I send with my order request?', a: 'Please send a clear, high-quality photo of the design if possible. If you know them, include the size, fabric, embroidery placement and your machine format.' },
+            { q: 'Which files will I receive?', a: 'The standard set includes DST, PES and JEF files, a technical PDF sheet and several vector image files of the design. If you need a specific additional format, mention it in your order comments.' },
+            { q: 'How long does the work take?', a: 'If there is no queue, an order may be ready within 24 hours. Lettering and simple logos usually take 24–48 hours.' },
+            { q: 'How much does digitizing cost?', a: 'Current prices are listed under Process & prices. For a specific design, I will review the artwork and agree the price with you before starting.' },
+            { q: 'Can I request revisions?', a: 'Yes. Revisions are unlimited until you are fully satisfied with the result.' },
+            { q: 'What is the free test design?', a: 'You can send one design for free, so you can check the quality of my work before we start working together.' },
+            { q: 'Which artwork formats can I send?', a: 'Images, PDF, SVG, AI, EPS and CDR files. You can attach several files at once.' },
+            { q: 'Which format will I get for my machine?', a: 'Any format your machine needs. Just tell me the machine or format when you send the request.' }
+          ]
+        },
+        contact: {
+          title: 'Contact & order request',
+          h: 'Tell me about your embroidery project',
+          p: 'Share the design and a few details. I will review the file and reply with a price and delivery estimate.',
+          companyField: 'Company / studio (optional)',
+          nameField: 'Your name',
+          emailField: 'Email address',
+          upload: 'Choose artwork file(s)',
+          uploadHint: 'Image, PDF, SVG, AI, EPS, CDR · multiple files · max. 10 MB total',
+          noFiles: 'No files selected yet',
+          fmtVec: 'Vector', fmtStitch: 'Stitch ready', fmtMore: '+ any other format on request',
+          rulesH: 'What decides whether a logo survives as stitches', rulesIntro: 'Quick check before you send the file (typical guide values, I always review each file):',
+          rules: [
+            { x: 'Text: about 5 mm high or more stays readable; smaller letters fill in.' },
+            { x: 'Thin lines: about 1 mm or thicker; hairlines get dropped or turn into a blur.' },
+            { x: 'Gradients and shadows: become stepped colour blocks, so fewer colours work best.' },
+            { x: 'Colours: each change means a thread swap; up to about 6–8 colours is practical.' },
+            { x: 'Artwork quality: a sharp, large image or a vector gives the cleanest result; blurry JPGs lose detail.' }
+          ],
+          detH: 'Project details (optional)', fType: 'Type of work', fFormat: 'Desired format', fSize: 'Size & placement', fSizePh: 'e.g. 8 cm, left chest', fFabric: 'Fabric / garment', fFabricPh: 'e.g. polo, cap, fleece', fDeadline: 'Deadline', fDeadlinePh: 'e.g. by Friday',
+          types: [{ v: 'Lettering' }, { v: 'Logo' }, { v: 'Artwork' }, { v: 'Cap' }, { v: 'Patch' }, { v: 'Other' }],
+          consent: 'I agree that my data and files are used to answer this request.', consentLink: 'Privacy notice',
+          resp: 'I usually reply within 1 hour, most often in 1–4 hours.',
+          tooBig: 'Files are too large (max. 10 MB in total). Please send fewer or smaller files, or email them directly.',
+          pre: [
+            { q: 'What should I send?', a: 'The artwork (a clear image, PDF or vector file), and if you know them, the size, fabric, placement and your machine format.' },
+            { q: 'How fast do I get a reply?', a: 'I review the file and reply with a price and delivery estimate. Without a queue an order can be ready within 24 hours; lettering and simple logos usually take 24–48 hours.' },
+            { q: 'What if I am not satisfied?', a: 'Corrections are unlimited until you are fully satisfied, and your first test design is free.' }
+          ],
+          mailNote: 'Your request and files are sent directly to me. If sending fails, your email app opens instead: attach the file(s) there.',
+          sending: 'Sending…',
+          sent: 'Thank you! Your request was sent. I will reply by email.',
+          sendErr: 'Could not send directly. Your email app should open; please attach the file(s) there.',
+          submit: 'Send order request',
+          email: 'osypchuk.mykola96@gmail.com',
+          phone: 'WhatsApp +49 176 59625835',
+          copy: '© 2026 Micolash Stitch Studio · Nürnberg',
+          legal: 'Legal notice [link]'
+        }
+      },
+      de: {
+        role: 'Stickdigitalisierung · Wilcom',
+        place: 'Nürnberg',
+        status: 'Verfügbar für Projekte',
+        cta: '1 kostenloses Testdesign',
+        toastTitle: '1 kostenloses Testdesign',
+        toastText: 'für Ihr Studio',
+        later: 'Später',
+        close: 'Schließen',
+        minimize: 'Fenster minimieren',
+        maximize: 'Fenster vergrößern',
+        socialLabel: 'Social-Media-Links',
+        legalNav: 'Rechtliches',
+        faqNav: 'FAQ',
+        howNav: 'So läuft es',
+        legal: {
+          title: 'Rechtliche Informationen',
+          draft: 'ENTWURF — Angaben ergänzen und Rechtstexte vor der Veröffentlichung prüfen lassen.',
+          tabs: { impressum: 'Impressum', privacy: 'Datenschutz', terms: 'AGB (optional)', withdrawal: 'Widerruf', cookies: 'Cookies' },
+          pages: {
+            impressum: { title: 'Impressum', intro: 'Vervollständigen Sie die Betreiberangaben, bevor die Website öffentlich kostenpflichtige Leistungen anbietet.', items: [
+              { label: 'Vollständiger rechtlicher Name', text: '[NOCH EINZUTRAGEN: vollständiger Vor- und Nachname. Micolash Stitch Studio ist der Studioname und ersetzt den Namen des Betreibers nicht.]' },
+              { label: 'Studioname und Anschrift', text: 'Micolash Stitch Studio. [NOCH EINZUTRAGEN: Straße, Hausnummer, Postleitzahl und Ort; diese Anschrift wird veröffentlicht.]' },
+              { label: 'Kontakt', text: 'E-Mail: osypchuk.mykola96@gmail.com · WhatsApp: +49 176 59625835' },
+              { label: 'Register- und Steuerangaben', text: '[VOR DEM START PRÜFEN: Handelsregister- oder Umsatzsteuer-ID ergänzen, falls vorhanden und anzugeben; andernfalls die passende Angabe verwenden oder das Feld entfernen.]' },
+              { label: 'Verbraucherstreitbeilegung', text: '[PRÜFEN: VSBG-Angabe zur Teilnahmebereitschaft ergänzen, falls erforderlich. Für Unternehmen mit höchstens zehn Beschäftigten im Vorjahr gilt eine Ausnahme von dieser Informationspflicht.]' }
+            ] },
+            privacy: { title: 'Datenschutzhinweise', intro: 'Diese Seite muss das tatsächliche Hosting, die Formulare, E-Mail und alle externen Dienste der veröffentlichten Website beschreiben.', items: [
+              { label: 'Verantwortlicher', text: '[NOCH EINZUTRAGEN: vollständiger rechtlicher Name, öffentliche Anschrift und Kontaktdaten.]' },
+              { label: 'Hosting und Serverprotokolle', text: '[NOCH EINZUTRAGEN: Hosting-Anbieter, Serverprotokolle, Zweck, Rechtsgrundlage und Speicherdauer.]' },
+              { label: 'Anfragen und Motivdateien', text: 'Das Formular sendet Name, E-Mail, optional Firma und angehängte Motivdateien an den Formulardienst Formspree (formspree.io), der sie an mein E-Mail-Postfach weiterleitet. Schlägt der Versand fehl, öffnet sich stattdessen das E-Mail-Programm des Besuchers. [NOCH EINZUTRAGEN: Angaben zur Datenverarbeitung durch Formspree, Speicherdauer und Umgang mit den Dateien.]' },
+              { label: 'Externe Schriftarten und Social Links', text: 'Die Seite lädt Google Fonts derzeit von Google. Die Social-Media-Symbole sind normale externe Links und öffnen die Plattform erst nach einem Klick. [Entscheiden, ob die Schriftarten lokal eingebunden werden, und die endgültige Lösung beschreiben.]' },
+              { label: 'Weitere Datenschutzangaben', text: '[NOCH EINZUTRAGEN: Zwecke und Rechtsgrundlagen, Empfänger, Übermittlungen außerhalb des EWR, Speicherfristen, Betroffenenrechte, Aufsichtsbehörde und gegebenenfalls Datenschutzbeauftragter.]' }
+            ] },
+            terms: { title: 'AGB und Bedingungen', intro: 'AGB sind für diese Website nicht automatisch vorgeschrieben, können aber klare Regeln schaffen. Für Privat- und Geschäftskunden passend formulieren und keine fremden AGB kopieren.', items: [
+              { label: 'Leistung und Vertragsschluss', text: '[NOCH EINZUTRAGEN: Leistungsumfang, wann aus der Anfrage ein verbindlicher Auftrag wird, Preisfreigabe und Arbeitsbeginn.]' },
+              { label: 'Preis, Zahlung und Lieferung', text: '[NOCH EINZUTRAGEN: Zahlungsart und Fälligkeit, Lieferzeit, Dateiformate, PDF und Vektordateien.]' },
+              { label: 'Korrekturen und Nutzungsrechte', text: 'Unbegrenzte Korrekturen sind vorgesehen. [NOCH EINZUTRAGEN: Umfang der Korrekturen, Urheber- und Nutzungsrechte an Stickdateien sowie Rechte an bereitgestellten Vorlagen.]' },
+              { label: 'Stornierung und Haftung', text: '[NOCH EINZUTRAGEN: Stornierungsregeln, Verbraucher-Widerrufsrecht und angemessene Haftungsregeln; nach deutschem Verbraucherrecht prüfen lassen.]' }
+            ] },
+            withdrawal: { title: 'Widerrufsinformation und Formular', intro: 'Besonders relevant für Verbraucher bei Fernabsatzverträgen. Der richtige Text hängt davon ab, ob ein Auftrag eine Dienstleistung, eine digitale Datei oder beides umfasst.', items: [
+              { label: 'Widerrufsrecht für Verbraucher', text: '[NACH RECHTLICHER PRÜFUNG EINTRAGEN: ob ein Widerrufsrecht besteht, Frist, Ausübung und Muster-Widerrufsformular. Eine individuell erstellte Stickdatei schließt das Widerrufsrecht nicht automatisch aus.]' },
+              { label: 'Arbeitsbeginn vor Fristende', text: '[PRÜFEN: Falls die Arbeit während einer Widerrufsfrist beginnt, vorab die gesetzlich erforderliche ausdrückliche Zustimmung und Kenntnisbestätigung einholen.]' },
+              { label: 'Online-Widerrufsfunktion', text: 'Für bestimmte Fernabsatzverträge, die über eine Online-Benutzeroberfläche geschlossen werden, ist eine gut erreichbare Widerrufsfunktion erforderlich. Diese Website bereitet derzeit eine E-Mail-Anfrage vor und hat keinen Checkout; bei Online-Bestellung oder Zahlung erneut prüfen.' },
+              { label: 'Angaben im Formular', text: '[Bei Bedarf Formular mit Name, Auftragsnummer, Leistung oder Datei, Bestelldatum, Widerrufsdatum und Unterschrift vorbereiten.]' }
+            ] },
+            cookies: { title: 'Cookies und Einwilligung', intro: 'Eine Einwilligung ist nicht automatisch für jedes Cookie nötig; entscheidend ist, was die veröffentlichte Website auf dem Endgerät speichert oder ausliest.', items: [
+              { label: 'Prüfung des aktuellen Quelltexts', text: 'Im Quelltext dieser Seite sind keine Analyse- oder Werbe-Tracker eingerichtet. Google Fonts werden extern geladen. Hosting, Einbettungen und Plugins vor dem Start erneut prüfen.' },
+              { label: 'Wann ein Einwilligungsbanner nötig wird', text: '[Wenn nicht notwendige Analyse-, Werbe- oder andere Speicherzugriffe hinzukommen, vorab Einwilligung, Ablehnen-Möglichkeit und spätere Änderung der Auswahl einrichten. Bei ausschließlich erforderlichen Technologien diese Lösung dokumentieren.]' },
+              { label: 'Cookie-Einstellungen', text: '[Einen funktionierenden Einstellungslink nur ergänzen, wenn ein Consent-Manager oder nicht notwendige Cookies eingesetzt werden.]' }
+            ] }
+          }
+        },
+        dock: ['Über mich', 'Arbeiten', 'Ablauf & Preise', 'Kontakt & Auftrag', 'Foto → Stich'],
+        about: {
+          title: 'Über mich',
+          h: 'Hallo und herzlich willkommen bei Micolash Stitch Studio!',
+          p1: 'Vielen Dank für Ihren Besuch in meinem Studio. Micolash Stitch Studio ist ein professionelles Studio für Stickdigitalisierung und erstellt hochwertige Digitalisierungen sowie Stickdateien in Premiumqualität. Ich möchte Ihnen einen ausgezeichneten Service bieten und dafür sorgen, dass jeder Kunde zufrieden ist.',
+          p2: 'Seit 3 Jahren beschäftige ich mich mit Designentwicklung und Maschinenstickerei. Jedes Projekt gehe ich mit Präzision und Liebe zum Detail an. Mit manueller Digitalisierung achte ich auf eine hohe Stichqualität und eine genaue Umsetzung jedes Motivs.',
+          p3: 'Meine Designs spiegeln die Kunstfertigkeit und Komplexität der Originalvorlagen wider. Ich gestalte jedes Motiv mit Sorgfalt und achte auf Ausdruck, Farben und präzise Details – dort, wo Kreativität auf Faden trifft.',
+          p4: 'Mir ist wichtig, dass jede Arbeit die Idee des Kunden aufgreift, den Charakter der Vorlage bewahrt und als fertige Stickerei harmonisch wirkt. Ich schätze Ihr Vertrauen. Vielen Dank, dass Sie Micolash Stitch Studio gewählt haben! Herzliche Grüße, Micolash.',
+          portrait: 'Porträtfoto einfügen'
+        },
+        works: {
+          title: 'Arbeiten',
+          sub: 'Eine Auswahl nach Thema und Größe.',
+          addPhoto: 'Foto einfügen',
+          tabs: { all: 'Alle', text: 'Schriftzüge', logo: 'Logos', small: 'Klein', large: 'Groß', cap: 'Mützen & Caps', kids: 'Kinder & Namen', gaming: 'Gaming' },
+          items: ['Schriftzug im Script-Stil', 'Firmenlogo für die Brust', 'Kleines Motiv mit feinen Details', 'Rückenmotiv, große Fläche', 'Motiv für die Cap-Front', 'Name mit Kindermotiv', 'Gaming-Motiv', 'Vereinswappen', 'Illustration, mehrfarbig', 'Initialen und Monogramm'],
+          closeH: 'Vom Kundenfoto zur Stickerei',
+          artwork: 'Vorlage',
+          stitched: 'Gestickt, Nahaufnahme',
+          sliderBefore: 'Kundenfoto',
+          sliderAfter: 'Mein Stickdesign',
+          sliderAria: 'Stickvorlage und Maschinenstickerei vergleichen',
+          sliderHint: 'Ziehen Sie die Linie: links das Foto, das ich von einem Kunden erhalten habe, rechts die daraus digitalisierte Stickerei.',
+          exAria: 'Beispiel auswählen',
+          full: '⤢ Vollbild',
+          ex: [
+            { tab: 'Auto', before: 'Kundenfoto', after: 'Mein Stickdesign', hint: 'Ziehen Sie die Linie: links das Foto, das ich von einem Kunden erhalten habe, rechts die daraus digitalisierte Stickerei.' },
+            { tab: 'Logo', before: 'Vektorlogo', after: 'Mein Stickdesign', hint: 'Ziehen Sie die Linie: links das Vektorlogo des Kunden, rechts die daraus digitalisierte Stickerei.' },
+            { tab: 'Foto digitalisiert', before: 'Kundenfoto', after: 'Mein Stickdesign', hint: 'Ziehen Sie die Linie: links ein Foto mit Personen, rechts meine digitalisierte Stickerei inklusive Logo.' }
+          ]
+        },
+        prices: {
+          title: 'Ablauf & Preise',
+          intro: 'Richtpreise pro Design. Der Festpreis folgt nach Sichtung Ihrer Vorlage.',
+          more: 'Was ist enthalten',
+          more: 'Was ist enthalten',
+          cards: [
+            { k: 'Schriftzüge', price: '8 €', d: 'Namen, Beschriftungen, Initialen und Slogans.', more: 'Digitalisierung in Wilcom, jedes Maschinenformat plus technisches PDF-Datenblatt, unbegrenzte Korrekturen bis Sie zufrieden sind.' },
+            { k: 'Logos', price: '8–12 €', d: 'Firmenlogos, Vereinswappen und Brustlogos.', more: 'Der Preis innerhalb der Spanne richtet sich nach Anzahl der Details und Farben. Jedes Maschinenformat plus technisches PDF-Datenblatt, unbegrenzte Korrekturen.' },
+            { k: 'Motive', price: 'ab 15 €', d: 'Bilder und Illustrationen. Meist etwa 20 € für ein übliches Design; der Preis richtet sich nach Aufwand, Detailgrad und Größe.', more: 'Aufwand, Detailgrad und Größe bestimmen den Preis. Ich bestätige ihn vor Arbeitsbeginn. Jedes Maschinenformat plus technisches PDF-Datenblatt, unbegrenzte Korrekturen.' }
+          ],
+          facts: [
+            { k: '1 Testdesign gratis', d: 'Zum Kennenlernen, bevor wir zusammenarbeiten.' },
+            { k: 'Jedes Format', d: 'In jedem Format, das Ihre Maschine braucht, dazu ein technisches PDF-Datenblatt.' },
+            { k: 'Korrekturen', d: 'Unbegrenzt, bis Sie vollständig zufrieden sind.' }
+          ],
+          stepsH: 'So läuft die Zusammenarbeit',
+          steps: [
+            { n: '1', k: 'Vorlage senden', d: 'Logo oder Bild, Größe, Stoff und Zielformat per Mail.' },
+            { n: '2', k: 'Festpreis & Freigabe', d: 'Sie erhalten den Preis vorab und geben frei.' },
+            { n: '3', k: 'Digitalisierung', d: 'Ich digitalisiere in Wilcom und schicke Ihnen eine Vorschau.' },
+            { n: '4', k: 'Lieferung', d: 'Fertige Datei im passenden Format, bereit für Ihre Maschine.' }
+          ],
+          delivery: 'Wenn keine Warteschlange besteht, kann ein Auftrag innerhalb von 24 Stunden fertig sein. Schriftzüge und einfache Logos dauern üblicherweise 24–48 Stunden.',
+          rush: 'Expresslieferung nach individueller Absprache.',
+          faqH: 'Häufige Fragen',
+          faq: [
+            { q: 'Was soll ich mit meiner Anfrage senden?', a: 'Senden Sie nach Möglichkeit ein gut erkennbares, hochwertiges Foto des Designs. Falls bekannt, geben Sie bitte Größe, Stoff, Platzierung der Stickerei und Maschinenformat an.' },
+            { q: 'Welche Dateien erhalte ich?', a: 'Zum Standardpaket gehören DST-, PES- und JEF-Dateien, ein technisches PDF-Datenblatt sowie mehrere Vektordateien des Designs. Wenn Sie ein bestimmtes weiteres Format benötigen, schreiben Sie es bitte in den Kommentar zur Bestellung.' },
+            { q: 'Wie lange dauert die Arbeit?', a: 'Wenn keine Warteschlange besteht, kann ein Auftrag innerhalb von 24 Stunden fertig sein. Schriftzüge und einfache Logos dauern üblicherweise 24–48 Stunden.' },
+            { q: 'Was kostet die Digitalisierung?', a: 'Die aktuellen Preise finden Sie unter Ablauf & Preise. Bei einem konkreten Motiv prüfe ich die Vorlage und stimme den Preis vor Arbeitsbeginn persönlich mit Ihnen ab.' },
+            { q: 'Kann ich Korrekturen wünschen?', a: 'Ja. Die Anzahl der Korrekturen ist unbegrenzt – bis Sie mit dem Ergebnis vollständig zufrieden sind.' },
+            { q: 'Was ist das kostenlose Testdesign?', a: 'Sie können ein Design kostenlos senden und so die Qualität meiner Arbeit prüfen, bevor wir zusammenarbeiten.' },
+            { q: 'Welche Vorlagenformate kann ich senden?', a: 'Bilder, PDF-, SVG-, AI-, EPS- und CDR-Dateien. Sie können mehrere Dateien gleichzeitig anhängen.' },
+            { q: 'Welches Format erhalte ich für meine Maschine?', a: 'Jedes Format, das Ihre Maschine benötigt. Nennen Sie mir einfach Maschine oder Format in der Anfrage.' }
+          ]
+        },
+        contact: {
+          title: 'Kontakt & Auftragsanfrage',
+          h: 'Erzählen Sie mir von Ihrem Stickprojekt',
+          p: 'Senden Sie das Motiv und ein paar Angaben. Ich prüfe die Datei und antworte mit Preis und Lieferzeit.',
+          companyField: 'Firma / Studio (optional)',
+          nameField: 'Ihr Name',
+          emailField: 'E-Mail-Adresse',
+          upload: 'Motivdatei(en) auswählen',
+          uploadHint: 'Bild, PDF, SVG, AI, EPS, CDR · mehrere Dateien · max. 10 MB gesamt',
+          noFiles: 'Noch keine Dateien ausgewählt',
+          fmtVec: 'Vektor', fmtStitch: 'Stickfertig', fmtMore: '+ jedes andere Format auf Anfrage',
+          rulesH: 'Was entscheidet, ob ein Logo als Stickerei funktioniert', rulesIntro: 'Kurzer Check vor dem Senden (typische Richtwerte, ich prüfe jede Datei einzeln):',
+          rules: [
+            { x: 'Schrift: ab etwa 5 mm Höhe gut lesbar; kleinere Buchstaben laufen zu.' },
+            { x: 'Dünne Linien: etwa 1 mm oder dicker; Haarlinien fallen weg oder verschwimmen.' },
+            { x: 'Verläufe und Schatten: werden zu Farbstufen, daher funktionieren weniger Farben am besten.' },
+            { x: 'Farben: jeder Wechsel bedeutet einen Garnwechsel; bis etwa 6–8 Farben sind praktikabel.' },
+            { x: 'Vorlagenqualität: ein scharfes, großes Bild oder ein Vektor ergibt das sauberste Ergebnis; unscharfe JPGs verlieren Details.' }
+          ],
+          detH: 'Projektdetails (optional)', fType: 'Art der Arbeit', fFormat: 'Gewünschtes Format', fSize: 'Größe & Platzierung', fSizePh: 'z. B. 8 cm, linke Brust', fFabric: 'Stoff / Textil', fFabricPh: 'z. B. Polo, Cap, Fleece', fDeadline: 'Termin', fDeadlinePh: 'z. B. bis Freitag',
+          types: [{ v: 'Schriftzug' }, { v: 'Logo' }, { v: 'Artwork' }, { v: 'Cap' }, { v: 'Patch' }, { v: 'Sonstiges' }],
+          consent: 'Ich willige ein, dass meine Daten und Dateien zur Bearbeitung dieser Anfrage verwendet werden.', consentLink: 'Datenschutzhinweise',
+          resp: 'Ich antworte in der Regel innerhalb von 1 Stunde, meist in 1–4 Stunden.',
+          tooBig: 'Dateien zu groß (max. 10 MB insgesamt). Bitte weniger oder kleinere Dateien senden oder per E-Mail schicken.',
+          pre: [
+            { q: 'Was soll ich senden?', a: 'Die Vorlage (gut erkennbares Bild, PDF oder Vektordatei) und, falls bekannt, Größe, Stoff, Platzierung und Ihr Maschinenformat.' },
+            { q: 'Wie schnell bekomme ich eine Antwort?', a: 'Ich prüfe die Datei und antworte mit Preis und Lieferzeit. Ohne Warteschlange kann ein Auftrag innerhalb von 24 Stunden fertig sein; Schriftzüge und einfache Logos dauern üblicherweise 24–48 Stunden.' },
+            { q: 'Was, wenn ich nicht zufrieden bin?', a: 'Korrekturen sind unbegrenzt, bis Sie vollständig zufrieden sind, und Ihr erstes Testdesign ist kostenlos.' }
+          ],
+          mailNote: 'Ihre Anfrage und die Dateien werden direkt an mich gesendet. Falls das nicht klappt, öffnet sich Ihre E-Mail-App: Bitte hängen Sie die Dateien dort an.',
+          sending: 'Wird gesendet…',
+          sent: 'Vielen Dank! Ihre Anfrage wurde gesendet. Ich antworte per E-Mail.',
+          sendErr: 'Direkter Versand nicht möglich. Ihre E-Mail-App sollte sich öffnen; bitte hängen Sie die Dateien dort an.',
+          submit: 'Auftragsanfrage senden',
+          email: 'osypchuk.mykola96@gmail.com',
+          phone: 'WhatsApp +49 176 59625835',
+          copy: '© 2026 Micolash Stitch Studio · Nürnberg',
+          legal: 'Impressum [Link]'
+        }
+      }
+    };
+  }
+
+  renderVals() {
+    const st = this.state || {};
+    const lang = st.lang === 'de' ? 'de' : 'en';
+    const t = this.dict()[lang];
+    const accent = this.props.accent ?? '#FF8DB3';
+    const win = st.win || null;
+    const cat = st.cat || 'all';
+    const toastOpen = st.toast !== false;
+    const legalTab = st.legalTab || 'impressum';
+
+    const lbase = "min-height:32px;min-width:44px;padding:0 10px;border:0;border-radius:999px;font-weight:700;font-size:13px;cursor:pointer;";
+    const lon = lbase + "background:#fff;color:#14141C;";
+    const loff = lbase + "background:transparent;color:#fff;";
+    const legalIds = ['impressum', 'privacy', 'terms', 'withdrawal', 'cookies'];
+    const topLinks = [
+      { label: t.faqNav, pick: () => this.setState({ win: 'faq' }) },
+      ...legalIds.map((id) => ({ label: t.legal.tabs[id], pick: () => this.setState({ win: 'legal', legalTab: id }) }))
+    ];
+    const legalPage = t.legal.pages[legalTab] || t.legal.pages.impressum;
+    const legalTabs = legalIds.map((id) => ({
+      label: t.legal.tabs[id],
+      style: "min-height:40px;padding:0 14px;border-radius:999px;border:1px solid #454B6D;font-weight:700;font-size:13px;cursor:pointer;" + (legalTab === id ? "background:#fff;color:#14141C;" : "background:transparent;color:#ECE9F2;"),
+      pick: () => this.setState({ legalTab: id })
+    }));
+
+    const EXS = [
+      { b: './assets/4d7ade7818a2e100bcbddf1cede33ae7.jpg', a: './assets/424e6618a0b3616fb9a6ec68099d21b0.jpg', r: '1851/1866', k: .992 },
+      { b: './assets/f35828fef1ede4caf0a288c7a391f65a.jpg', a: './assets/e1627c05b1eb9452226a5d12b4f6efd1.jpg', r: '1100/760', k: 1.447 },
+      { b: './assets/1fc6e202b9fc840e8ca589326c53388d.jpg', a: './assets/2e9203867c1250161fd050448745800f.jpg', r: '2901/2259', k: 1.284 }
+    ];
+    const exI = Math.max(0, Math.min(EXS.length - 1, Number(st.sliderEx) || 0));
+    const ids = ['about', 'works', 'prices', 'contact', 'compare'];
+    const dbase = "appearance:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;padding:9px 12px 7px;min-width:92px;border-radius:20px;color:#fff;border:1px solid rgba(255,255,255,.18);box-shadow:0 8px 20px rgba(0,0,0,.3);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);";
+    const dock = ids.map((id, i) => ({
+      label: t.dock[i],
+      isAbout: id === 'about', isWorks: id === 'works', isPrices: id === 'prices', isContact: id === 'contact', isCompare: id === 'compare',
+      style: dbase + (win === id ? 'background:rgba(255,255,255,.28);' : 'background:rgba(20,22,34,.55);'),
+      pick: () => { this.stopSweep(); this.setState({ win: win === id ? null : id, winMin: false, cmpBig: false }); if (id === 'compare' && win !== id) this.startSweep(); }
+    }));
+
+    const tbase = "display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;font-weight:700;font-size:15px;cursor:pointer;";
+    const ton = tbase + "background:" + accent + ";color:#14141C;border:2px solid " + accent + ";";
+    const toff = tbase + "background:transparent;color:#ECE9F5;border:2px solid #4A5280;";
+    const tabIds = ['all', 'text', 'logo', 'small', 'large', 'cap', 'kids', 'gaming'];
+    const tabs = tabIds.map((id) => ({
+      label: t.works.tabs[id],
+      style: cat === id ? ton : toff,
+      pick: () => this.setState({ cat: id })
+    }));
+
+    const pal = {
+      text: ['#4A3340', '#563C49'], logo: ['#2F4A55', '#385663'], small: ['#3A3F66', '#444A75'],
+      large: ['#5A3446', '#664055'], cap: ['#4A5030', '#565D38'], kids: ['#5A4A2A', '#675533'], gaming: ['#2E3550', '#374060']
+    };
+    const cats = ['text', 'logo', 'small', 'large', 'cap', 'kids', 'gaming', 'logo', 'large', 'text'];
+    const tiles = t.works.items
+      .map((title, i) => ({ title, cat: cats[i] }))
+      .filter((it) => cat === 'all' || it.cat === cat)
+      .map((it) => ({
+        title: it.title,
+        catLabel: t.works.tabs[it.cat],
+        thumb: 'aspect-ratio:4/3;border-radius:14px;box-sizing:border-box;display:flex;align-items:flex-end;padding:12px;background:repeating-linear-gradient(45deg,' + pal[it.cat][0] + ' 0 7px,' + pal[it.cat][1] + ' 7px 14px);'
+      }));
+
+    return {
+      t, accent, dock, tabs, tiles, toastOpen, legalTabs, legalPage, topLinks,
+      isEn: lang === 'en', isDe: lang === 'de',
+      enStyle: lang === 'en' ? lon : loff,
+      deStyle: lang === 'de' ? lon : loff,
+      setEn: () => this.setState({ lang: 'en' }),
+      setDe: () => this.setState({ lang: 'de' }),
+      wAbout: win === 'about', wWorks: win === 'works', wPrices: win === 'prices', wContact: win === 'contact', wCompare: win === 'compare', wLegal: win === 'legal', wFaq: win === 'faq', wHow: win === 'how',
+      closeWin: () => this.setState({ win: null, winMin: false, cmpBig: false }),
+      closeToast: () => {
+        if (this.snoozeTimer) clearTimeout(this.snoozeTimer);
+        this.setState({ toast: false });
+      },
+      snoozeToast: () => {
+        if (this.snoozeTimer) clearTimeout(this.snoozeTimer);
+        this.setState({ toast: false });
+        this.snoozeTimer = setTimeout(() => this.setState({ toast: true }), 60000);
+      },
+      selectOrderFiles: (e) => {
+        const inp = e.currentTarget;
+        const files = Array.from((inp && inp.files) || []);
+        const total = files.reduce((n, file) => n + (file.size || 0), 0);
+        if (total > 10 * 1024 * 1024) { try { inp.value = ''; } catch (x) {} this.setState({ orderFiles: [], orderStatus: 'big' }); return; }
+        this.setState({ orderFiles: files.map((file) => file.name), orderStatus: '' });
+      },
+      sendMail: (e) => {
+        try { e.preventDefault(); } catch (x) {}
+        const a = e.currentTarget; const f = a && a.closest('form');
+        if (f && !f.reportValidity()) return;
+        const de = lang === 'de';
+        const v = (n) => { const el = f && f.querySelector('[name=' + n + ']'); return el ? el.value.trim() : ''; };
+        const files = ((this.state || {}).orderFiles || []);
+        const mailFallback = () => {
+          const nl = String.fromCharCode(10);
+          const subject = (de ? 'Stickerei-Auftragsanfrage' : 'Embroidery order request') + (v('company') ? ' - ' + v('company') : '');
+          const body = (de ? 'Firma / Studio: ' : 'Company / studio: ') + (v('company') || '-') + nl + 'Name: ' + v('name') + nl + (de ? 'E-Mail: ' : 'Email: ') + v('email') + nl + (v('work_type') ? (de ? 'Art: ' : 'Type: ') + v('work_type') + nl : '') + (v('size_placement') ? (de ? 'Größe/Platzierung: ' : 'Size/placement: ') + v('size_placement') + nl : '') + (v('fabric_garment') ? (de ? 'Stoff/Textil: ' : 'Fabric/garment: ') + v('fabric_garment') + nl : '') + (v('desired_format') ? (de ? 'Zielformat: ' : 'Format: ') + v('desired_format') + nl : '') + (v('deadline') ? (de ? 'Termin: ' : 'Deadline: ') + v('deadline') + nl : '') + (de ? 'Ausgewählte Datei(en): ' : 'Selected file(s): ') + (files.length ? files.join(', ') : (de ? 'keine' : 'none')) + nl + nl + (de ? 'Bitte Maße, Stoff und Zielformat ergänzen und die Motivdatei(en) an diese E-Mail anhängen.' : 'Please add the size, fabric and target format, and attach the artwork file(s) to this email.');
+          const ml = document.createElement('a'); ml.href = 'mailto:osypchuk.mykola96@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body); ml.target = '_blank'; ml.rel = 'noopener'; ml.style.display = 'none'; document.body.appendChild(ml); ml.click(); setTimeout(() => { try { ml.remove(); } catch (x) {} }, 500);
+        };
+        this.setState({ orderStatus: 'sending' });
+        try {
+          const fd = new FormData(f);
+          fd.append('_subject', (de ? 'Stickerei-Auftragsanfrage' : 'Embroidery order request') + (v('company') ? ' - ' + v('company') : ''));
+          fetch('https://formspree.io/f/xnppeppl', { method: 'POST', body: fd, headers: { Accept: 'application/json' } })
+            .then((r) => { if (r.ok) { this.setState({ orderStatus: 'ok' }); try { f.reset(); } catch (x) {} this.setState({ orderFiles: [] }); } else { this.setState({ orderStatus: 'err' }); mailFallback(); } })
+            .catch(() => { this.setState({ orderStatus: 'err' }); mailFallback(); });
+        } catch (err) { this.setState({ orderStatus: 'err' }); mailFallback(); }
+      },
+      orderStatusText: ({ sending: t.contact.sending, ok: t.contact.sent, err: t.contact.sendErr, big: t.contact.tooBig })[st.orderStatus] || '',
+      orderFilesText: ((st.orderFiles || []).length ? (st.orderFiles || []).join(', ') : t.contact.noFiles),
+      winCls: (st.cmpBig ? 'win-max cmp-big' : '') + (st.winMin ? ' win-min' : ''),
+      minWin: () => this.setState({ winMin: !st.winMin }),
+      maxWin: () => this.setState({ cmpBig: !st.cmpBig, winMin: false }),
+      goFull: () => this.setState({ cmpBig: !st.cmpBig }),
+      exTabs: EXS.map((e, i) => ({ label: t.works.ex[i].tab, cls: 'ba-tab' + (i === exI ? ' ba-tab-on' : ''), pressed: i === exI ? 'true' : 'false', pick: () => { this.stopSweep(); this.setState({ sliderEx: i }); this.startSweep(); } })),
+      exStyle: '--ba-position:' + (Number.isFinite(Number(st.sliderPosition)) ? Math.max(0, Math.min(100, Number(st.sliderPosition))) : 50) + '%;--ba-r:' + EXS[exI].r + ';--ba-k:' + EXS[exI].k,
+      exBefore: EXS[exI].b, exAfter: EXS[exI].a,
+      exLabelBefore: t.works.ex[exI].before, exLabelAfter: t.works.ex[exI].after, exHint: t.works.ex[exI].hint,
+      sliderPosition: Number.isFinite(Number(st.sliderPosition)) ? Math.max(0, Math.min(100, Number(st.sliderPosition))) : 50,
+      setSliderPosition: (event) => { this.stopSweep(); this.setState({ sliderPosition: Number(event.currentTarget.value) }); },
+      openContact: () => this.setState({ win: 'contact' }),
+      openHow: () => this.setState({ win: 'how' }),
+      openPrivacy: () => this.setState({ win: 'legal', legalTab: 'privacy' }),
+      openLegal: () => this.setState({ win: 'legal', legalTab: (this.state && this.state.legalTab) || 'impressum' })
+    };
+  }
+}
+</script>
+</body>
+</html>

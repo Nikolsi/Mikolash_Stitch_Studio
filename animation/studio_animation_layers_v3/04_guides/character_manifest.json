@@ -1,0 +1,327 @@
+{
+ "canvas": [
+  320,
+  440
+ ],
+ "anchor_px": [
+  160,
+  430
+ ],
+ "anchor_meaning": "ground contact point (soles line). Place frame so that anchor == scene point (x, y).",
+ "scene_scale": {
+  "standing_height_px": 390,
+  "group_A_scale": 1.0541,
+  "group_B_scale": 1.2859,
+  "note": "Source sheet drew walk/walk_away/lean ~1.22x smaller than idle/sit/stand_up; both groups now match the scene scale."
+ },
+ "mirror": "Frames face right. For walking left use CSS transform: scaleX(-1) on the 320x440 box (anchor stays at x=160).",
+ "walk_cycle": {
+  "order": [
+   "walk_side/walk_01",
+   "walk_side/walk_06",
+   "walk_side/walk_05",
+   "walk_side/walk_04"
+  ],
+  "advance_px_per_frame": [
+   26,
+   42,
+   40,
+   34
+  ],
+  "fps": 10,
+  "note": "Order chosen by planted-foot analysis; advances keep the planted boot within ~±6 px. 10 fps (was 8) — smoother and ~25% faster.",
+  "crossfade": 0.35
+ },
+ "sit_rear": {
+  "DROP_px": 58,
+  "head_pivot_canvas": [
+   163,
+   171
+  ],
+  "parts": [
+   "sit_rear/sit_rear_head",
+   "sit_rear/sit_rear_head_turn_right",
+   "sit_rear/sit_rear_body"
+  ],
+  "layer_order": "head under body (hood covers the neck seam)",
+  "idle_motion": "head rotate ±1.2° around pivot, ~0.9 s; occasional head_turn_right 2–4 s; body breathing scaleY 1.000–1.006 from bottom",
+  "rise_sequence": [
+   "sit_rear/sit_rear_01",
+   "sit_rear/rise_rear_01",
+   "sit_rear/rise_rear_02",
+   "walk_away/walk_away_01"
+  ],
+  "rise": "continuous: translate sit rig (head+body) by -DROP over 0.5 s (ease-in-out), legs stay; then switch to walk_away/walk_away_01",
+  "occupied_mesh": "01_scene_layers/06b_chair_back_mesh_occupied.png — show while someone is behind the chair"
+ },
+ "lean_rig": {
+  "hip_pivot_canvas": [
+   140,
+   244
+  ],
+  "heel_pivot_canvas": [
+   154,
+   428
+  ],
+  "torso_angles_deg_ccw": {
+   "lean_rig_00_upright": 18,
+   "lean_rig_01_half": 9,
+   "lean_rig_02_inspect": 0
+  },
+  "tap_deg_ccw": 7,
+  "note": "legs fixed; torso rotates around the hip; front boot rotates around the heel (toe up) for foot tapping",
+  "parts": [
+   "lean_rig/lean_rig_legs",
+   "lean_rig/lean_rig_front_boot",
+   "lean_rig/lean_rig_torso"
+  ],
+  "layer_order": "legs, front boot, torso",
+  "frames": [
+   "lean_rig/lean_rig_00_upright",
+   "lean_rig/lean_rig_01_half",
+   "lean_rig/lean_rig_02_inspect",
+   "lean_rig/lean_rig_02_inspect_tap"
+  ],
+  "waiting": "alternate lean_rig_02_inspect (0.30 s) / lean_rig_02_inspect_tap (0.16 s) = foot tapping while the machine stitches"
+ },
+ "sit_legs": {
+  "file": "02_character_frames/sit_rear/sit_rear_legs.png",
+  "note": "trouser legs seen from behind + heels only (no toes); drawn procedurally to match the pants; static under the seat"
+ },
+ "unused_in_this_composition": [
+  "lean_inspect/lean_inspect_01",
+  "lean_inspect/lean_inspect_02",
+  "lean_inspect/lean_inspect_03 (replaced by lean_rig, same legs throughout)",
+  "computer_and_stand/sit_at_computer_01",
+  "computer_and_stand/sit_at_computer_02",
+  "computer_and_stand/stand_up_01",
+  "computer_and_stand/stand_up_02"
+ ],
+ "unused_reason": "Chair in the scene faces away from the viewer, profile seated poses do not fit it. Kept (rescaled) for other compositions.",
+ "frames": {
+  "computer_and_stand/sit_at_computer_01": {
+   "file": "02_character_frames/computer_and_stand/sit_at_computer_01.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/computer_and_stand/sit_at_computer_01.png",
+   "scale_from_source": 1.0541,
+   "anchor_rule": "centre of grounded boots",
+   "facing": "right"
+  },
+  "computer_and_stand/sit_at_computer_02": {
+   "file": "02_character_frames/computer_and_stand/sit_at_computer_02.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/computer_and_stand/sit_at_computer_02.png",
+   "scale_from_source": 1.0541,
+   "anchor_rule": "centre of grounded boots",
+   "facing": "right"
+  },
+  "computer_and_stand/stand_up_01": {
+   "file": "02_character_frames/computer_and_stand/stand_up_01.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/computer_and_stand/stand_up_01.png",
+   "scale_from_source": 1.0541,
+   "anchor_rule": "centre of grounded boots",
+   "facing": "right"
+  },
+  "computer_and_stand/stand_up_02": {
+   "file": "02_character_frames/computer_and_stand/stand_up_02.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/computer_and_stand/stand_up_02.png",
+   "scale_from_source": 1.0541,
+   "anchor_rule": "centre of grounded boots",
+   "facing": "right"
+  },
+  "idle/idle_main": {
+   "file": "02_character_frames/idle/idle_main.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/idle/idle_main.png",
+   "scale_from_source": 1.0541,
+   "anchor_rule": "centre of grounded boots",
+   "facing": "front"
+  },
+  "idle/idle_profile": {
+   "file": "02_character_frames/idle/idle_profile.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/idle/idle_profile.png",
+   "scale_from_source": 1.0541,
+   "anchor_rule": "centre of grounded boots",
+   "facing": "right"
+  },
+  "idle/idle_three_quarter": {
+   "file": "02_character_frames/idle/idle_three_quarter.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/idle/idle_three_quarter.png",
+   "scale_from_source": 1.0541,
+   "anchor_rule": "centre of grounded boots",
+   "facing": "right"
+  },
+  "lean_inspect/lean_inspect_01": {
+   "file": "02_character_frames/lean_inspect/lean_inspect_01.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/lean_inspect/lean_inspect_01.png",
+   "scale_from_source": 1.2859,
+   "anchor_rule": "centre of grounded boots",
+   "facing": "right"
+  },
+  "lean_inspect/lean_inspect_02": {
+   "file": "02_character_frames/lean_inspect/lean_inspect_02.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/lean_inspect/lean_inspect_02.png",
+   "scale_from_source": 1.2859,
+   "anchor_rule": "centre of grounded boots",
+   "facing": "right"
+  },
+  "lean_inspect/lean_inspect_03": {
+   "file": "02_character_frames/lean_inspect/lean_inspect_03.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/lean_inspect/lean_inspect_03.png",
+   "scale_from_source": 1.2859,
+   "anchor_rule": "centre of grounded boots",
+   "facing": "right"
+  },
+  "walk_away/walk_away_01": {
+   "file": "02_character_frames/walk_away/walk_away_01.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/walk_away/walk_away_01.png",
+   "scale_from_source": 1.2859,
+   "anchor_rule": "centre of grounded boots",
+   "facing": "right"
+  },
+  "walk_away/walk_away_02": {
+   "file": "02_character_frames/walk_away/walk_away_02.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/walk_away/walk_away_02.png",
+   "scale_from_source": 1.2859,
+   "anchor_rule": "centre of grounded boots",
+   "facing": "right"
+  },
+  "walk_away/walk_away_03": {
+   "file": "02_character_frames/walk_away/walk_away_03.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/walk_away/walk_away_03.png",
+   "scale_from_source": 1.2859,
+   "anchor_rule": "centre of grounded boots",
+   "facing": "right"
+  },
+  "walk_side/walk_01": {
+   "file": "02_character_frames/walk_side/walk_01.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/walk_side/walk_01.png",
+   "scale_from_source": 1.2859,
+   "anchor_rule": "torso centre (treadmill walk)",
+   "facing": "right"
+  },
+  "walk_side/walk_02": {
+   "file": "02_character_frames/walk_side/walk_02.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/walk_side/walk_02.png",
+   "scale_from_source": 1.2859,
+   "anchor_rule": "torso centre (treadmill walk)",
+   "facing": "right"
+  },
+  "walk_side/walk_03": {
+   "file": "02_character_frames/walk_side/walk_03.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/walk_side/walk_03.png",
+   "scale_from_source": 1.2859,
+   "anchor_rule": "torso centre (treadmill walk)",
+   "facing": "right"
+  },
+  "walk_side/walk_04": {
+   "file": "02_character_frames/walk_side/walk_04.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/walk_side/walk_04.png",
+   "scale_from_source": 1.2859,
+   "anchor_rule": "torso centre (treadmill walk)",
+   "facing": "right"
+  },
+  "walk_side/walk_05": {
+   "file": "02_character_frames/walk_side/walk_05.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/walk_side/walk_05.png",
+   "scale_from_source": 1.2859,
+   "anchor_rule": "torso centre (treadmill walk)",
+   "facing": "right"
+  },
+  "walk_side/walk_06": {
+   "file": "02_character_frames/walk_side/walk_06.png",
+   "source": "studio_animation_revised_pack_v2/.../01_character_frames_aligned/walk_side/walk_06.png",
+   "scale_from_source": 1.2859,
+   "anchor_rule": "torso centre (treadmill walk)",
+   "facing": "right"
+  },
+  "sit_rear/sit_rear_legs": {
+   "file": "02_character_frames/sit_rear/sit_rear_legs.png",
+   "source": "procedural (scripts/rigs_v3.py)",
+   "facing": "back"
+  },
+  "sit_rear/sit_rear_head": {
+   "file": "02_character_frames/sit_rear/sit_rear_head.png",
+   "source": "derived from walk_away_01 / walk_away_02 (back view)",
+   "anchor_rule": "same anchor as standing behind the chair; body lowered by DROP",
+   "facing": "back"
+  },
+  "sit_rear/sit_rear_02_look_right": {
+   "file": "02_character_frames/sit_rear/sit_rear_02_look_right.png",
+   "source": "derived from walk_away_01 / walk_away_02 (back view)",
+   "anchor_rule": "same anchor as standing behind the chair; body lowered by DROP",
+   "facing": "back"
+  },
+  "sit_rear/rise_rear_01": {
+   "file": "02_character_frames/sit_rear/rise_rear_01.png",
+   "source": "derived from walk_away_01 / walk_away_02 (back view)",
+   "anchor_rule": "same anchor as standing behind the chair; body lowered by DROP",
+   "facing": "back",
+   "note": "kept for frame-based players; the preview uses the continuous rise"
+  },
+  "sit_rear/sit_rear_head_turn_right": {
+   "file": "02_character_frames/sit_rear/sit_rear_head_turn_right.png",
+   "source": "derived from walk_away_01 / walk_away_02 (back view)",
+   "anchor_rule": "same anchor as standing behind the chair; body lowered by DROP",
+   "facing": "back"
+  },
+  "sit_rear/rise_rear_02": {
+   "file": "02_character_frames/sit_rear/rise_rear_02.png",
+   "source": "derived from walk_away_01 / walk_away_02 (back view)",
+   "anchor_rule": "same anchor as standing behind the chair; body lowered by DROP",
+   "facing": "back",
+   "note": "kept for frame-based players; the preview uses the continuous rise"
+  },
+  "sit_rear/sit_rear_body": {
+   "file": "02_character_frames/sit_rear/sit_rear_body.png",
+   "source": "derived from walk_away_01 / walk_away_02 (back view)",
+   "anchor_rule": "same anchor as standing behind the chair; body lowered by DROP",
+   "facing": "back"
+  },
+  "sit_rear/sit_rear_01": {
+   "file": "02_character_frames/sit_rear/sit_rear_01.png",
+   "source": "derived from walk_away_01 / walk_away_02 (back view)",
+   "anchor_rule": "same anchor as standing behind the chair; body lowered by DROP",
+   "facing": "back"
+  },
+  "lean_rig/lean_rig_00_upright": {
+   "file": "02_character_frames/lean_rig/lean_rig_00_upright.png",
+   "source": "derived from lean_inspect_03 (legs fixed, torso rotated around hip)",
+   "anchor_rule": "centre of grounded boots (same as lean_inspect_03)",
+   "facing": "right"
+  },
+  "lean_rig/lean_rig_01_half": {
+   "file": "02_character_frames/lean_rig/lean_rig_01_half.png",
+   "source": "derived from lean_inspect_03 (legs fixed, torso rotated around hip)",
+   "anchor_rule": "centre of grounded boots (same as lean_inspect_03)",
+   "facing": "right"
+  },
+  "lean_rig/lean_rig_02_inspect": {
+   "file": "02_character_frames/lean_rig/lean_rig_02_inspect.png",
+   "source": "derived from lean_inspect_03 (legs fixed, torso rotated around hip)",
+   "anchor_rule": "centre of grounded boots (same as lean_inspect_03)",
+   "facing": "right"
+  },
+  "lean_rig/lean_rig_02_inspect_tap": {
+   "file": "02_character_frames/lean_rig/lean_rig_02_inspect_tap.png",
+   "source": "derived from lean_inspect_03 (legs fixed, torso rotated around hip)",
+   "anchor_rule": "centre of grounded boots (same as lean_inspect_03)",
+   "facing": "right"
+  },
+  "lean_rig/lean_rig_front_boot": {
+   "file": "02_character_frames/lean_rig/lean_rig_front_boot.png",
+   "source": "derived from lean_inspect_03 (legs fixed, torso rotated around hip)",
+   "anchor_rule": "centre of grounded boots (same as lean_inspect_03)",
+   "facing": "right"
+  },
+  "lean_rig/lean_rig_legs": {
+   "file": "02_character_frames/lean_rig/lean_rig_legs.png",
+   "source": "derived from lean_inspect_03 (legs fixed, torso rotated around hip)",
+   "anchor_rule": "centre of grounded boots (same as lean_inspect_03)",
+   "facing": "right"
+  },
+  "lean_rig/lean_rig_torso": {
+   "file": "02_character_frames/lean_rig/lean_rig_torso.png",
+   "source": "derived from lean_inspect_03 (legs fixed, torso rotated around hip)",
+   "anchor_rule": "centre of grounded boots (same as lean_inspect_03)",
+   "facing": "right"
+  }
+ }
+}

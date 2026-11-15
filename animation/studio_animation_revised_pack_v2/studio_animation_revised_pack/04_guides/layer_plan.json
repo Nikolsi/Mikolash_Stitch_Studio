@@ -1,0 +1,54 @@
+{
+  "scene_canvas_px": [
+    1672,
+    941
+  ],
+  "layers_back_to_front": [
+    {
+      "name": "studio_background_original_1672x941.png",
+      "status": "ready",
+      "role": "static background; includes static workstation and embroidery machine body"
+    },
+    {
+      "name": "character_frames_aligned",
+      "status": "ready",
+      "role": "19 RGBA character poses; common 240x400 canvas and bottom-center anchor"
+    },
+    {
+      "name": "embroidery_head",
+      "status": "not_ready",
+      "role": "requires strict segmentation and clean plate before movement"
+    },
+    {
+      "name": "needle_bar_and_presser_foot",
+      "status": "not_ready",
+      "role": "requires separate cutout and clean plate; use large source crop, not scaled tiny crop"
+    },
+    {
+      "name": "foreground_rug_full_canvas_RGBA.png",
+      "status": "ready_overlay_only",
+      "role": "transparent exact-position rug overlay to occlude lower parts of character when behind the rug"
+    }
+  ],
+  "machine_working_regions_approx_px": {
+    "head_assembly": [
+      1260,
+      278,
+      1496,
+      421
+    ],
+    "needle_presser_zone": [
+      1318,
+      411,
+      1436,
+      512
+    ],
+    "static_body_table": [
+      1245,
+      498,
+      1530,
+      725
+    ]
+  },
+  "warning": "Machine regions are approximate guide boxes, not final masks. The existing legacy head cutout includes neighboring details/background and must not be animated."
+}

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Micolash Stitch Studio — превью живой сцены</title>
+<link rel="stylesheet" href="preview.css">
+</head>
+<body>
+<div class="viewport" id="viewport">
+  <div class="stage" id="stage" aria-label="Мастерская Micolash Stitch Studio" role="img">
+    <img class="layer" src="../01_scene_layers/00_background_clean_plate.png" alt="">
+    <img class="layer neon" id="neon" src="../01_scene_layers/00b_neon_sign.png" alt="">
+    <div id="slots"></div><!-- posters + monitor screens: generated from MSS.content_slots -->
+    <img class="layer" src="../01_scene_layers/01_chair_shadow.png" alt="">
+    <img class="layer" src="../01_scene_layers/02_machine_needles_static.png" alt="">
+    <img class="layer" id="needle" src="../01_scene_layers/02b_machine_needle_active.png" alt="">
+    <img class="layer" id="machineHead" src="../01_scene_layers/03_machine_head.png" alt="">
+
+    <img class="amb pc" id="pcGlow" src="../03_ambient_overlays/pc_rgb_glow.png" alt="">
+    <div class="amb monitor" id="monL"></div>
+    <div class="amb monitor" id="monR"></div>
+    <img class="amb colon" id="colon" src="../03_ambient_overlays/clock_colon_off.png" alt="">
+
+    <!-- character: 320x440 box, anchor (160,430) = ground contact point -->
+    <div class="frames" id="frames"><img class="frame" id="frameA" alt=""><img class="frame" id="frameB" alt=""></div>
+    <div class="char" id="char">
+      <img class="sitlegs" src="../02_character_frames/sit_rear/sit_rear_legs.png" alt="">
+      <div class="sitrig" id="sitrig"><div class="breather">
+        <img class="head" id="headA" src="../02_character_frames/sit_rear/sit_rear_head.png" alt="">
+        <img class="head turned" id="headB" src="../02_character_frames/sit_rear/sit_rear_head_turn_right.png" alt="">
+        <img class="body" src="../02_character_frames/sit_rear/sit_rear_body.png" alt="">
+      </div></div>
+      <div class="leanrig">
+        <img src="../02_character_frames/lean_rig/lean_rig_legs.png" alt="">
+        <img id="leanBoot" src="../02_character_frames/lean_rig/lean_rig_front_boot.png" alt="">
+        <img id="leanTorso" src="../02_character_frames/lean_rig/lean_rig_torso.png" alt="">
+      </div>
+    </div>
+
+    <img class="layer" src="../01_scene_layers/05_chair_seat_base.png" alt="">
+    <img class="layer" src="../01_scene_layers/06_chair_back.png" alt="">
+    <img class="layer mesh" id="meshOccupied" src="../01_scene_layers/06b_chair_back_mesh_occupied.png" alt="">
+    <img class="layer" src="../01_scene_layers/07_foreground_rug.png" alt="">
+    <img class="dog" id="dog" alt="">
+    <img class="ball" id="ball" src="../01_scene_layers/ball/ball_0.png" alt="">
+    <img class="layer" src="../01_scene_layers/08_dog_bed_front_rim.png" alt="">
+  </div>
+</div>
+
+<div class="hud" id="hud">
+  <button id="btnPlay" type="button">❚❚ Пауза</button>
+  <button id="btnMachine" type="button">Пойти к машине сейчас</button>
+  <button id="btnDog" type="button">Разбудить собаку</button>
+  <button id="btnSweater" type="button">Кофточка: нет</button>
+  <button id="btnSpeed" type="button">Скорость ×1</button>
+  <button id="btnFit" type="button">Режим: вписать</button>
+  <button id="btnDebug" type="button">Контуры</button>
+  <span class="status" id="status">…</span>
+</div>
+
+<script src="scene_data.js"></script>
+<script src="preview.js"></script>
+</body>
+</html>

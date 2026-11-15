@@ -1,0 +1,84 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: #17151a; color: #fff; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif; }
+body { min-height: 100vh; }
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: min(100vh, 940px);
+  height: 100svh;
+  max-height: 1100px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #25212a;
+}
+.room {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: url("assets/studio-background.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+/* A subtle tint improves legibility without hiding the illustration. */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(15,12,18,.43), rgba(15,12,18,.08) 56%, rgba(15,12,18,.02));
+  pointer-events: none;
+}
+.character {
+  position: absolute;
+  z-index: 2;
+  left: 25%;
+  bottom: 8.5%;
+  height: clamp(220px, 45%, 490px);
+  aspect-ratio: 280 / 520;
+  width: auto;
+  transform: translateX(0);
+  will-change: left, transform;
+  pointer-events: none;
+  filter: drop-shadow(0 7px 5px rgba(0,0,0,.22));
+}
+.character img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.site-ui {
+  position: absolute;
+  z-index: 5;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: clamp(18px, 3vw, 42px) clamp(22px, 5vw, 76px);
+  text-shadow: 0 2px 10px rgba(0,0,0,.5);
+}
+.brand { color: #fff; font-weight: 750; letter-spacing: .02em; text-decoration: none; }
+nav { display: flex; gap: clamp(16px, 3vw, 42px); }
+nav a { color: #fff; text-decoration: none; font-size: 14px; font-weight: 650; }
+nav a:hover { color: #ffb6dc; }
+.hero-copy {
+  position: absolute;
+  z-index: 4;
+  left: clamp(22px, 7vw, 110px);
+  top: 34%;
+  max-width: 440px;
+  text-shadow: 0 3px 18px rgba(0,0,0,.65);
+}
+.eyebrow { color: #ffc3e3; font-size: 11px; letter-spacing: .22em; font-weight: 800; }
+h1 { margin: 12px 0 24px; font-size: clamp(38px, 5.5vw, 76px); line-height: .98; letter-spacing: -.045em; }
+.cta { display: inline-block; padding: 13px 20px; border-radius: 999px; color: #241722; background: #ffc2e1; text-decoration: none; font-size: 13px; font-weight: 800; text-shadow: none; }
+.demo-note { position: absolute; z-index: 6; right: 18px; bottom: 14px; margin: 0; color: rgba(255,255,255,.72); font-size: 10px; text-shadow: 0 1px 5px #000; }
+@media (max-width: 700px) {
+  .hero { min-height: 620px; height: 82svh; }
+  .room { background-position: 52% center; }
+  .site-ui { align-items: flex-start; flex-direction: column; gap: 12px; }
+  nav { gap: 18px; }
+  .hero-copy { top: 28%; max-width: 290px; }
+  .character { height: 37%; bottom: 7%; left: 18%; }
+  .demo-note { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .character { transition: none !important; }
+}

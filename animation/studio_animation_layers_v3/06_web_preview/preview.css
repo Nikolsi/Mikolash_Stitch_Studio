@@ -1,0 +1,93 @@
+html, body { margin: 0; height: 100%; background: #120c10; color: #f3e6dc; font: 14px/1.3 system-ui, -apple-system, "Segoe UI", sans-serif; overflow: hidden; }
+.viewport { position: fixed; inset: 0; overflow: hidden; }
+.stage { position: absolute; left: 0; top: 0; width: 1672px; height: 941px; transform-origin: 0 0; }
+.stage img { user-select: none; -webkit-user-drag: none; pointer-events: none; }
+.layer { position: absolute; left: 0; top: 0; width: 1672px; height: 941px; }
+#needle, #machineHead { will-change: transform; }
+
+/* neon sign (swappable banner) */
+.neon { animation: neon 9s linear infinite; }
+@keyframes neon { 0%, 100% { opacity: 1; } 40% { opacity: .9; } 70% { opacity: 1; } 88% { opacity: .97; } 89% { opacity: .55; } 90% { opacity: 1; } 91% { opacity: .62; } 92% { opacity: 1; } }
+
+/* content slots (posters / screens), mapped onto their quad with matrix3d */
+.slot { position: absolute; left: 0; top: 0; transform-origin: 0 0; overflow: hidden; }
+.slot > img, .slot > video { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* character box: 320x440, anchor at (160,430) */
+.char { position: absolute; left: 0; top: 0; width: 320px; height: 440px; will-change: transform; }
+.char img, .char .sitrig, .char .breather, .char .leanrig, .frames .frame { position: absolute; left: 0; top: 0; width: 320px; height: 440px; }
+.frames .frame { opacity: 0; will-change: transform, opacity; }
+.frames { display: none; position: absolute; left: 0; top: 0; width: 1672px; height: 941px; isolation: isolate; pointer-events: none; }
+.frames.on { display: block; }
+.mesh { opacity: 0; transition: opacity .25s linear; }
+.mesh.on { opacity: 1; }
+@keyframes mouse { 0%, 100% { transform: translate(0, 0); } 30% { transform: translate(1.2px, -.6px); } 55% { transform: translate(-.8px, .4px); } 80% { transform: translate(.6px, .8px); } }
+@keyframes typing { 0% { transform: translateY(0); } 50% { transform: translateY(.6px); } }
+.char .sitrig, .char .sitlegs, .char .leanrig { display: none; }
+.char.mode-sit .sitrig, .char.mode-sit .sitlegs { display: block; }
+.char.mode-lean .leanrig { display: block; }
+.char .breather { animation: breathe 4.2s ease-in-out infinite; }
+.char .head { transform-origin: var(--pivot-x, 163px) var(--pivot-y, 171px); animation: bob 1.7s ease-in-out infinite; transition: opacity .28s ease; }
+.char .head.turned { opacity: 0; }
+.char.look-right .head.turned { opacity: 1; }
+.char.look-right .head:not(.turned) { opacity: 0; }
+.char.no-bob .head { animation-play-state: paused; }
+#leanTorso { transform-origin: var(--hip-x, 140px) var(--hip-y, 244px); }
+#leanBoot { transform-origin: var(--heel-x, 154px) var(--heel-y, 428px); }
+@keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1px); } }
+@keyframes bob { 0%, 100% { transform: rotate(-1.1deg); } 25% { transform: rotate(0deg) translateY(1px); } 50% { transform: rotate(1.1deg); } 75% { transform: rotate(0deg) translateY(1px); } }
+
+/* dog (sitting yorkie, see dog.js) */
+.dog { position: absolute; width: 68px; height: 104px; image-rendering: pixelated; }
+.dog svg { display: block; overflow: visible; }
+.dog .dog-sweater, .dog .dog-lids, .dog .dog-tongue { display: none; }
+.dog.sweater .dog-sweater { display: inline; }
+.dog.sleep .dog-lids, .dog.blink .dog-lids { display: inline; }
+.dog.happy .dog-tongue { display: inline; }
+.dog .dog-chest { animation: dogbreath 3.4s ease-in-out infinite; }
+.dog.awake .dog-chest { animation-duration: 1.5s; }
+@keyframes dogbreath { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.015, 1.03); } }
+.dog .dog-head, .dog .dog-pupils { transition: transform .4s cubic-bezier(.3, .7, .3, 1); }
+.dog.sleep .dog-head { transform: rotate(-3deg) translateY(5px); }
+.dog.tilt-l .dog-head { transform: rotate(-13deg); }
+.dog.tilt-r .dog-head { transform: rotate(13deg); }
+.dog.look-ball .dog-head { transform: rotate(9deg) translate(2px, 3px); }
+.dog.look-ball .dog-pupils { transform: translate(1.6px, 1.6px); }
+.dog.nudge .dog-head { transition-duration: .16s; transform: rotate(16deg) translate(5px, 9px); }
+.dog.look-guy .dog-head { transform: rotate(7deg) translate(2px, -2px); }
+.dog.look-guy .dog-pupils { transform: translate(2px, -1.5px); }
+.dog.happy .dog-all { animation: hop .26s ease-in-out 3 alternate; }
+@keyframes hop { to { transform: translateY(-3px); } }
+.dog.wag .dog-tail { animation: wag .18s ease-in-out infinite alternate; }
+@keyframes wag { from { transform: rotate(-14deg); } to { transform: rotate(16deg); } }
+.dog.twitch .dog-ear-r { animation: twitch .32s ease-in-out 2; }
+.dog.twitch .dog-ear-l { animation: twitch .32s ease-in-out .5s 1 reverse; }
+@keyframes twitch { 50% { transform: rotate(9deg); } }
+.ball { position: absolute; left: 0; top: 0; width: 32px; height: 32px; image-rendering: pixelated; will-change: transform; }
+
+/* ambient overlays */
+.amb { position: absolute; pointer-events: none; }
+.pc { mix-blend-mode: screen; animation: rgb 4s ease-in-out infinite alternate; }
+@keyframes rgb { from { opacity: .15; filter: hue-rotate(0deg); } to { opacity: .7; filter: hue-rotate(35deg); } }
+.monitor { mix-blend-mode: screen; background: radial-gradient(ellipse at 50% 55%, rgba(150, 190, 255, .16), rgba(120, 160, 255, 0) 70%); opacity: 0; transition: opacity .4s; }
+.typing .monitor { opacity: 1; animation: flick 2.3s steps(6) infinite; }
+.typing #monR { animation-duration: 3.1s; }
+@keyframes flick { 0% { opacity: .55; } 20% { opacity: .9; } 40% { opacity: .7; } 60% { opacity: 1; } 80% { opacity: .6; } 100% { opacity: .85; } }
+.colon { animation: colon 2s steps(1) infinite; }
+@keyframes colon { 0% { opacity: 0; } 50% { opacity: 1; } }
+
+/* debug */
+.debug .char { outline: 1px dashed #4cf; }
+.debug .char::after { content: ""; position: absolute; left: 157px; top: 427px; width: 6px; height: 6px; background: #f3c; border-radius: 50%; }
+.debug .slot { outline: 2px solid #ff0; }
+.debug .dog { outline: 1px dashed #fc4; }
+.debug #needle { filter: drop-shadow(0 0 1px #0f0) drop-shadow(0 0 1px #0f0); }
+
+.hud { position: fixed; left: 12px; bottom: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 8px; border-radius: 10px; background: #1b1218cc; backdrop-filter: blur(6px); }
+.hud button { font: inherit; color: inherit; background: #3a2731; border: 1px solid #6b4a59; border-radius: 7px; padding: 5px 10px; cursor: pointer; }
+.hud button:hover { background: #4a3240; }
+.hud .status { opacity: .8; padding: 0 6px; min-width: 15em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .neon, .pc, .colon, .typing .monitor, .char .breather, .char .head, .dog .dog-chest, .dog.wag .dog-tail, .dog.happy .dog-all { animation: none !important; }
+}

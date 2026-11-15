@@ -1,0 +1,431 @@
+{
+  "canvas_size": [
+    240,
+    400
+  ],
+  "anchor": "bottom-center",
+  "anchor_position_px": [
+    120,
+    395
+  ],
+  "frames": [
+    {
+      "file": "01_character_frames_aligned/computer_and_stand/sit_at_computer_01.png",
+      "source_file": "character_frames/computer_and_stand/sit_at_computer_01.png",
+      "source_size": [
+        158,
+        280
+      ],
+      "trimmed_size": [
+        152,
+        274
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/computer_and_stand/sit_at_computer_02.png",
+      "source_file": "character_frames/computer_and_stand/sit_at_computer_02.png",
+      "source_size": [
+        154,
+        266
+      ],
+      "trimmed_size": [
+        148,
+        260
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/computer_and_stand/stand_up_01.png",
+      "source_file": "character_frames/computer_and_stand/stand_up_01.png",
+      "source_size": [
+        154,
+        283
+      ],
+      "trimmed_size": [
+        148,
+        277
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/computer_and_stand/stand_up_02.png",
+      "source_file": "character_frames/computer_and_stand/stand_up_02.png",
+      "source_size": [
+        118,
+        335
+      ],
+      "trimmed_size": [
+        112,
+        329
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/idle/idle_main.png",
+      "source_file": "character_frames/idle/idle_main.png",
+      "source_size": [
+        138,
+        377
+      ],
+      "trimmed_size": [
+        132,
+        372
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/idle/idle_profile.png",
+      "source_file": "character_frames/idle/idle_profile.png",
+      "source_size": [
+        117,
+        374
+      ],
+      "trimmed_size": [
+        111,
+        369
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/idle/idle_three_quarter.png",
+      "source_file": "character_frames/idle/idle_three_quarter.png",
+      "source_size": [
+        108,
+        375
+      ],
+      "trimmed_size": [
+        102,
+        370
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/lean_inspect/lean_inspect_01.png",
+      "source_file": "character_frames/lean_inspect/lean_inspect_01.png",
+      "source_size": [
+        169,
+        313
+      ],
+      "trimmed_size": [
+        163,
+        307
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/lean_inspect/lean_inspect_02.png",
+      "source_file": "character_frames/lean_inspect/lean_inspect_02.png",
+      "source_size": [
+        151,
+        299
+      ],
+      "trimmed_size": [
+        145,
+        293
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/lean_inspect/lean_inspect_03.png",
+      "source_file": "character_frames/lean_inspect/lean_inspect_03.png",
+      "source_size": [
+        158,
+        280
+      ],
+      "trimmed_size": [
+        152,
+        274
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/walk_away/walk_away_01.png",
+      "source_file": "character_frames/walk_away/walk_away_01.png",
+      "source_size": [
+        121,
+        295
+      ],
+      "trimmed_size": [
+        115,
+        289
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/walk_away/walk_away_02.png",
+      "source_file": "character_frames/walk_away/walk_away_02.png",
+      "source_size": [
+        94,
+        287
+      ],
+      "trimmed_size": [
+        88,
+        281
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/walk_away/walk_away_03.png",
+      "source_file": "character_frames/walk_away/walk_away_03.png",
+      "source_size": [
+        108,
+        288
+      ],
+      "trimmed_size": [
+        102,
+        282
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/walk_side/walk_01.png",
+      "source_file": "character_frames/walk_side/walk_01.png",
+      "source_size": [
+        177,
+        299
+      ],
+      "trimmed_size": [
+        171,
+        293
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/walk_side/walk_02.png",
+      "source_file": "character_frames/walk_side/walk_02.png",
+      "source_size": [
+        192,
+        299
+      ],
+      "trimmed_size": [
+        186,
+        293
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/walk_side/walk_03.png",
+      "source_file": "character_frames/walk_side/walk_03.png",
+      "source_size": [
+        154,
+        298
+      ],
+      "trimmed_size": [
+        148,
+        292
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/walk_side/walk_04.png",
+      "source_file": "character_frames/walk_side/walk_04.png",
+      "source_size": [
+        135,
+        302
+      ],
+      "trimmed_size": [
+        129,
+        296
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/walk_side/walk_05.png",
+      "source_file": "character_frames/walk_side/walk_05.png",
+      "source_size": [
+        118,
+        301
+      ],
+      "trimmed_size": [
+        112,
+        295
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    },
+    {
+      "file": "01_character_frames_aligned/walk_side/walk_06.png",
+      "source_file": "character_frames/walk_side/walk_06.png",
+      "source_size": [
+        164,
+        298
+      ],
+      "trimmed_size": [
+        158,
+        292
+      ],
+      "canvas_size": [
+        240,
+        400
+      ],
+      "anchor": "bottom-center",
+      "anchor_position_px": [
+        120,
+        395
+      ],
+      "note": "Transparent RGBA; original character pixels preserved, positioned on a common canvas. No furniture added."
+    }
+  ]
+}

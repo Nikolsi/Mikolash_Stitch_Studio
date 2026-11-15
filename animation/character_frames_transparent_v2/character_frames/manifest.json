@@ -1,0 +1,268 @@
+[
+  {
+    "file": "idle/idle_main.png",
+    "description": "Основной образ — стоя",
+    "source_bbox": [
+      60,
+      2,
+      132,
+      372
+    ],
+    "size_px": [
+      138,
+      377
+    ]
+  },
+  {
+    "file": "idle/idle_profile.png",
+    "description": "Стоя — профиль",
+    "source_bbox": [
+      1098,
+      2,
+      111,
+      369
+    ],
+    "size_px": [
+      117,
+      374
+    ]
+  },
+  {
+    "file": "idle/idle_three_quarter.png",
+    "description": "Стоя — три четверти",
+    "source_bbox": [
+      1278,
+      2,
+      102,
+      370
+    ],
+    "size_px": [
+      108,
+      375
+    ]
+  },
+  {
+    "file": "computer_and_stand/sit_at_computer_01.png",
+    "description": "Сидит за компьютером — поза 1",
+    "source_bbox": [
+      275,
+      94,
+      152,
+      274
+    ],
+    "size_px": [
+      158,
+      280
+    ]
+  },
+  {
+    "file": "computer_and_stand/sit_at_computer_02.png",
+    "description": "Сидит за компьютером — поза 2",
+    "source_bbox": [
+      511,
+      109,
+      148,
+      260
+    ],
+    "size_px": [
+      154,
+      266
+    ]
+  },
+  {
+    "file": "computer_and_stand/stand_up_01.png",
+    "description": "Встаёт — переходная поза",
+    "source_bbox": [
+      714,
+      93,
+      148,
+      277
+    ],
+    "size_px": [
+      154,
+      283
+    ]
+  },
+  {
+    "file": "computer_and_stand/stand_up_02.png",
+    "description": "После вставания — профиль",
+    "source_bbox": [
+      911,
+      40,
+      112,
+      329
+    ],
+    "size_px": [
+      118,
+      335
+    ]
+  },
+  {
+    "file": "walk_side/walk_01.png",
+    "description": "Ходьба в профиль — кадр 1",
+    "source_bbox": [
+      20,
+      392,
+      171,
+      293
+    ],
+    "size_px": [
+      177,
+      299
+    ]
+  },
+  {
+    "file": "walk_side/walk_02.png",
+    "description": "Ходьба в профиль — кадр 2",
+    "source_bbox": [
+      194,
+      394,
+      186,
+      293
+    ],
+    "size_px": [
+      192,
+      299
+    ]
+  },
+  {
+    "file": "walk_side/walk_03.png",
+    "description": "Ходьба в профиль — кадр 3",
+    "source_bbox": [
+      414,
+      394,
+      148,
+      292
+    ],
+    "size_px": [
+      154,
+      298
+    ]
+  },
+  {
+    "file": "walk_side/walk_04.png",
+    "description": "Ходьба в профиль — кадр 4",
+    "source_bbox": [
+      605,
+      394,
+      129,
+      296
+    ],
+    "size_px": [
+      135,
+      302
+    ]
+  },
+  {
+    "file": "walk_side/walk_05.png",
+    "description": "Ходьба в профиль — кадр 5",
+    "source_bbox": [
+      776,
+      394,
+      112,
+      295
+    ],
+    "size_px": [
+      118,
+      301
+    ]
+  },
+  {
+    "file": "walk_side/walk_06.png",
+    "description": "Ходьба в профиль — кадр 6",
+    "source_bbox": [
+      928,
+      395,
+      158,
+      292
+    ],
+    "size_px": [
+      164,
+      298
+    ]
+  },
+  {
+    "file": "walk_away/walk_away_01.png",
+    "description": "Разворот/ходьба спиной — кадр 1",
+    "source_bbox": [
+      1140,
+      399,
+      115,
+      289
+    ],
+    "size_px": [
+      121,
+      295
+    ]
+  },
+  {
+    "file": "walk_away/walk_away_02.png",
+    "description": "Разворот/ходьба спиной — кадр 2",
+    "source_bbox": [
+      1296,
+      410,
+      88,
+      281
+    ],
+    "size_px": [
+      94,
+      287
+    ]
+  },
+  {
+    "file": "walk_away/walk_away_03.png",
+    "description": "Разворот/ходьба спиной — кадр 3",
+    "source_bbox": [
+      1404,
+      409,
+      102,
+      282
+    ],
+    "size_px": [
+      108,
+      288
+    ]
+  },
+  {
+    "file": "lean_inspect/lean_inspect_01.png",
+    "description": "Наклон для осмотра — кадр 1",
+    "source_bbox": [
+      26,
+      701,
+      163,
+      307
+    ],
+    "size_px": [
+      169,
+      313
+    ]
+  },
+  {
+    "file": "lean_inspect/lean_inspect_02.png",
+    "description": "Наклон для осмотра — кадр 2",
+    "source_bbox": [
+      231,
+      719,
+      145,
+      293
+    ],
+    "size_px": [
+      151,
+      299
+    ]
+  },
+  {
+    "file": "lean_inspect/lean_inspect_03.png",
+    "description": "Наклон для осмотра — кадр 3",
+    "source_bbox": [
+      438,
+      742,
+      152,
+      274
+    ],
+    "size_px": [
+      158,
+      280
+    ]
+  }
+]

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Micolash Stitch Studio — animated banner demo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="hero" aria-label="Micolash Stitch Studio">
+    <!-- The room is the static background; the character is a separate transparent layer. -->
+    <div class="room" aria-hidden="true"></div>
+    <div class="character" aria-hidden="true">
+      <img id="runner" src="assets/run-1.png" alt="" draggable="false" />
+    </div>
+
+    <!-- Example site content. Replace this with your real logo, menu and buttons. -->
+    <header class="site-ui">
+      <a class="brand" href="#top">Micolash Stitch Studio</a>
+      <nav aria-label="Main navigation">
+        <a href="#works">Works</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+    <section class="hero-copy" id="top">
+      <p class="eyebrow">DIGITIZING · EMBROIDERY</p>
+      <h1>From artwork<br />to embroidery.</h1>
+      <a class="cta" href="#works">Explore my work</a>
+    </section>
+    <p class="demo-note">Animated scene demo · character layer is independent from the website UI</p>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

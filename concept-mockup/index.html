@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171310">
+  <title>Micolash Stitch Studio — Konzept</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles-overrides.css">
+</head>
+<body>
+  <main class="scene" id="scene">
+    <div class="room" aria-hidden="true"><div class="room-blur"></div><div class="studio-stage"><img class="room-full" src="assets/background/studio-background.png" alt=""></div></div>
+    <div class="shade" aria-hidden="true"></div>
+    <div class="topline">
+      <a class="wordmark" href="#home" aria-label="Micolash Stitch Studio Startseite"><span class="mark">M</span><span>MICOLASH<br><b>STITCH STUDIO</b></span></a>
+      <div class="top-actions">
+        <span class="availability"><i></i><span data-t="available">Verfügbar für neue Projekte</span></span>
+        <div class="language" aria-label="Sprache"><button class="selected" data-lang="de">DE</button><span>/</span><button data-lang="en">EN</button></div>
+      </div>
+    </div>
+
+    <section class="intro" id="home">
+      <p class="eyebrow"><span></span><span data-t="eyebrow">DIGITALISIERUNG · MASCHINENSTICKEREI</span></p>
+      <h1 data-t="headline">Deine Idee.<br><em>Bereit für den Faden.</em></h1>
+      <p class="intro-copy" data-t="subhead">Individuelle Stickdateien, mit Sorgfalt digitalisiert und passend für deine Maschine.</p>
+      <button class="primary" data-open="contact"><span data-t="order">Eigenes Design anfragen</span><span>↗</span></button>
+    </section>
+
+    <button class="free-card" data-open="contact"><span class="free-icon">✳</span><span><small data-t="freeLabel">ZUM KENNENLERNEN</small><b data-t="freeTitle">1 kostenloses Testdesign</b><small data-t="freeText">Lass uns deine Idee stickfertig machen.</small></span><span class="free-arrow">↗</span></button>
+
+    <nav class="dock" aria-label="Hauptnavigation">
+      <button class="dock-item active" data-open="works"><img src="assets/icons/2db3474dd83dc008413b77b8525d498c.png" alt=""><span data-t="works">Arbeiten</span></button>
+      <button class="dock-item" data-open="services"><img src="assets/icons/c50bc0c6f09d253034b48694b7ebf952.png" alt=""><span data-t="services">Leistungen & Preise</span></button>
+      <button class="dock-item" data-open="process"><img class="process-icon" src="assets/process-embroidered.png" alt=""><span data-t="process">Ablauf</span></button>
+      <button class="dock-item" data-open="about"><img src="assets/icons/7015749976adc6f18ce9dacea4be2a74.png" alt=""><span data-t="about">Über mich</span></button>
+      <button class="dock-item" data-open="contact"><img src="assets/icons/c3d8fb4c38a3efb2a2f9946944c42ec9.png" alt=""><span data-t="contact">Kontakt</span></button>
+      <button class="dock-item" data-open="compare"><img src="assets/icons/24b950e35aa0ed92f76a4b50237b5fc9.png" alt=""><span data-t="photoStitch">Foto → Stick</span></button>
+    </nav>
+
+    <aside class="socials" aria-label="Social Media">
+      <a href="http://www.linkedin.com/in/mykola-osypchuk-356829b1" aria-label="LinkedIn"><span class="social-patch linkedin"><b>in</b></span><span class="social-name">LinkedIn</span></a>
+      <a href="https://www.pinterest.com/MicolashStitchStudio" aria-label="Pinterest"><span class="social-patch pinterest"><b>P</b></span><span class="social-name">Pinterest</span></a>
+      <a href="https://www.instagram.com/micolash.stitch.studio/" aria-label="Instagram"><span class="social-patch instagram"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="8" width="32" height="32" rx="10"/><circle cx="24" cy="24" r="8"/><circle class="dot" cx="34" cy="14" r="2.5"/></svg></span><span class="social-name">Instagram</span></a>
+      <a href="https://www.facebook.com/" aria-label="Facebook"><span class="social-patch facebook"><b>f</b></span><span class="social-name">Facebook</span></a>
+      <a href="https://www.etsy.com/" aria-label="Etsy"><span class="social-patch etsy"><b>Etsy</b></span><span class="social-name">Etsy</span></a>
+    </aside>
+    <div class="signature"><span>01</span><i></i><span data-t="location">NÜRNBERG · DE</span></div>
+    <nav class="legal-links" aria-label="Rechtliche Informationen"><button data-legal="impressum">Impressum</button><button data-legal="privacy">Datenschutz</button><button data-legal="terms">AGB</button><button data-legal="cookies">Cookies</button><button data-legal="withdrawal">Widerruf</button></nav>
+
+    <div class="window-wrap" aria-live="polite"></div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
