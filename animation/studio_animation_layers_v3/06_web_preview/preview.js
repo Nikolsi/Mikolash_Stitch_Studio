@@ -83,41 +83,6 @@
   const FADE_WALK = WALK_DT * (D.character.walk_cycle.crossfade || 0.6), FADE_HOLD = 0.12;
   const statusEl = $('status'), status = (t) => { statusEl.textContent = t; };
 
-  // ---------- dog: pixel sprite frames (09_dog/frames), independent loop; reacts when the character stands up
-  const dogEl = $('dog'), ballEl = $('ball'), DG = D.dog, B = DG.ball, POSES = DG.poses;
-  Object.assign(dogEl.style, { left: DG.box_xyxy[0] + 'px', top: DG.box_xyxy[1] + 'px' });
-  Object.values(POSES).forEach((p) => p.frames.forEach((f) => { for (const pre of ['', 'sw_']) { const i = new Image(); i.src = `../${DG.frames_dir}/${pre}${f}.png`; } }));
-  let ballX = 0, ballTarget = 0, dogQ = [], dogT = 0, dogCur = null, blinkT = 2, blinkLeft = 0, sweater = !!DG.sweater;
-  function dogFrame() {
-    const p = POSES[dogCur.pose]; let f = p.frames[p.period ? Math.floor(dogT / p.period) % p.frames.length : 0];
-    if (blinkLeft > 0 && dogCur.pose === 'awake') f = 'blink';
-    const src = `../${DG.frames_dir}/${sweater ? 'sw_' : ''}${f}.png`;
-    if (dogEl.dataset.src !== src) { dogEl.src = src; dogEl.dataset.src = src; }
-  }
-  const ballPlace = () => {
-    const k = ((Math.round((ballX / B.radius) / (Math.PI / 4)) % 8) + 8) % 8, src = `../01_scene_layers/ball/ball_${k}.png`;
-    if (ballEl.dataset.src !== src) { ballEl.src = src; ballEl.dataset.src = src; }
-    ballEl.style.transform = `translate(${Math.round(B.center[0] - 16 + ballX)}px, ${B.center[1] - 16}px)`;
-  };
-  const dogPlay = () => [
-    { pose: 'awake', dur: 0.8 }, { pose: 'twitch', dur: 0.35 }, { pose: 'awake', dur: 0.5 }, { pose: 'tilt-l', dur: 0.8 }, { pose: 'tilt-r', dur: 0.8 },
-    { pose: 'ball', dur: 1.0 }, { pose: 'nudge', dur: 0.22, on: () => { ballTarget = B.roll_px; } }, { pose: 'happy', dur: 1.6 },
-    { pose: 'nudge', dur: 0.22, on: () => { ballTarget = 0; } }, { pose: 'happy', dur: 0.9 }, { pose: 'awake', dur: 1.4 },
-  ];
-  const dogSleep = () => ({ pose: 'sleep', dur: rand(DG.sleep_s[0], DG.sleep_s[1]) });
-  function dogNext() { if (!dogQ.length) dogQ = [dogSleep(), ...dogPlay()]; dogCur = dogQ.shift(); dogT = 0; if (dogCur.on) dogCur.on(); dogFrame(); }
-  function dogTick(dt) {
-    dogT += dt; if (dogT >= dogCur.dur) dogNext();
-    blinkT -= dt; blinkLeft -= dt; if (blinkT <= 0) { blinkLeft = 0.14; blinkT = rand(2, 4.5); }
-    ballX += (ballTarget - ballX) * Math.min(1, dt * 3.2); ballPlace(); dogFrame();
-  }
-  function dogWake(kind) {
-    if (kind === 'guy' && dogCur && dogCur.pose !== 'sleep') return;
-    dogQ = kind === 'guy' ? [{ pose: 'guy', dur: 2.0 }, { pose: 'awake', dur: 0.6 }, dogSleep(), ...dogPlay()] : dogPlay();
-    dogNext();
-  }
-  dogQ = [{ pose: 'sleep', dur: rand(3, 6) }, ...dogPlay()]; dogNext();
-
   // ---------- character timeline
   const sitOverride = params.has('sit') ? Number(params.get('sit')) : null;
   let idx = -1, step = null, t = 0, walk = null;
@@ -135,7 +100,6 @@
       mode('sit'); sitrig.style.transform = ''; place(step.at[0], step.at[1], false);
     } else if (step.type === 'rise' || step.type === 'sitdown') {
       mode('sit'); charEl.classList.add('no-bob', 'arms-off'); place(step.at[0], step.at[1], false);
-      if (step.type === 'rise') dogWake('guy');
     } else if (step.type === 'hold') {
       showFrameAt(step.frame, step.at[0], step.at[1], step.flip, FADE_HOLD);
     } else if (step.type === 'walk') {
@@ -197,20 +161,16 @@
   let playing = true, last = performance.now();
   $('btnPlay').onclick = (e) => { playing = !playing; e.target.textContent = playing ? '❚❚ Пауза' : '▶ Играть'; };
   $('btnMachine').onclick = () => { if (step && step.type === 'sit') t = step._dur; };
-  $('btnDog').onclick = () => dogWake('play');
-  const sw = $('btnSweater'), swSet = () => { sw.textContent = 'Кофточка: ' + (sweater ? 'да' : 'нет'); dogFrame(); };
-  sw.onclick = () => { sweater = !sweater; swSet(); }; swSet();
   $('btnSpeed').onclick = (e) => { speed = speed === 1 ? 2 : speed === 2 ? 4 : 1; e.target.textContent = `Скорость ×${speed}`; };
   $('btnFit').onclick = (e) => { fitMode = fitMode === 'contain' ? 'cover' : 'contain'; e.target.textContent = fitMode === 'contain' ? 'Режим: вписать' : 'Режим: заполнить'; fit(); };
   $('btnDebug').onclick = () => document.body.classList.toggle('debug');
   if (params.has('debug')) document.body.classList.add('debug');
   if (params.has('nohud')) $('hud').style.display = 'none';
 
-  startStep(0); ballPlace();
+  startStep(0);
   if (reduceMotion) { status('prefers-reduced-motion: сцена статична'); return; }
-  const all = (d) => { tick(d); machineTick(d); dogTick(d); };
+  const all = (d) => { tick(d); machineTick(d); };
   if (params.has('t')) { let left = Number(params.get('t')); while (left > 0) { const d = Math.min(0.05, left); all(d); left -= d; } }
-  if (params.has('dog')) dogWake('play');
   function loop(now) {
     const dt = Math.min(0.1, (now - last) / 1000) * speed; last = now;
     if (playing && !document.hidden) all(dt);

@@ -1,5 +1,6 @@
 /* Review-round adjustments: legacy embroidered icons, comparison window and legal links. */
-.room{z-index:0;background:none;overflow:hidden}
+.animated-scene{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:0;pointer-events:none}
+.room{display:none}
 .studio-stage{position:absolute;right:0;top:50%;width:min(100vw,177.68vh);height:min(100vh,56.34vw);transform:translateY(-50%);overflow:hidden}
 .shade{z-index:1}
 .topline,.intro,.free-card,.dock,.socials,.signature,.legal-links{z-index:2}
@@ -14,6 +15,21 @@
 .legal-links{position:absolute;right:18px;bottom:6.5vh;z-index:4;display:flex;gap:12px}.legal-links button{border:0;padding:4px 0;background:none;color:#f4e9deaa;font-size:9px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}.legal-links button:hover{color:#fff}
 @media(max-width:700px){.socials{left:8px;top:41%;gap:5px}.socials>a{width:35px;height:35px;padding:2px;border-radius:9px}.socials>a:hover,.socials>a:focus-visible{width:35px;transform:none}.social-patch{width:29px;height:29px;border-radius:7px}.social-patch.instagram svg{width:24px;height:24px}.social-name{display:none}.intro{left:12vw;width:81vw}.dock{width:calc(100% - 8px);bottom:7px;gap:0;padding:3px}.dock-item{min-width:0;flex:1;padding:5px 1px}.dock-item img,.dock-icon.stitch-icon{width:34px;height:34px}.dock-icon.stitch-icon{font-size:25px}.dock-item>span:last-child{font-size:7px}.legal-links{left:50%;right:auto;bottom:72px;transform:translateX(-50%);gap:9px;white-space:nowrap}.legal-links button{font-size:8px}}
 @media(prefers-reduced-motion:reduce){.free-card,.free-icon,.free-card::after{animation:none!important}}
+
+/* Keep the hero copy clear of the animated studio. */
+.intro{top:23%}
+h1{font-size:clamp(38px,4.6vw,68px)}
+@media(max-width:700px){.intro{top:20%;left:10vw;width:80vw}h1{font-size:clamp(32px,8.4vw,50px);margin:14px 0 12px}}
+
+/* Center the hero at the top of the studio scene. */
+.intro{top:4%;left:50%;width:min(680px,58vw);transform:translateX(-50%);text-align:center}
+.eyebrow{justify-content:center}
+.intro-copy{margin-left:auto;margin-right:auto}
+.primary{margin-left:auto;margin-right:auto}
+@media(max-width:700px){
+  .intro{top:4%;left:50%;width:80vw;transform:translateX(-50%)}
+  .free-card{top:auto;right:auto;bottom:90px;left:50%;width:max-content;max-width:calc(100% - 78px);transform:translateX(-50%)}
+}
 
 /* Interaction refinements from the supplied screenshots. */
 .window-wrap{z-index:10}
