@@ -13,7 +13,12 @@ interior &= ~((xx >= 458) & (xx <= 500) & (yy >= 566))          # lumbar bracket
 hp = orig - ndimage.gaussian_filter(orig, (1.4, 1.4, 0))
 base = np.array([30, 25, 29.0])
 vy = np.clip((yy - 494) / 120.0, 0, 1)[..., None]                 # slightly lighter at the top (rim light from monitors)
-col = base * (1.12 - 0.18 * vy) + np.clip(hp, -9, 9) * 0.8
+dist = ndimage.distance_transform_edt(interior)
+border = interior & (dist <= 5)                                   # keep the chair's own painted inner edge
+weave = (((xx + yy) % 4 == 0) | ((xx - yy) % 4 == 0)).astype(float)
+weave = ndimage.gaussian_filter(weave, 0.45) * 9 - 3                # neutral diamond mesh, no see-through content
+col = base[None, None, :] * (1.12 - 0.18 * vy) + weave[..., None]
+col[border] = (base * (1.12 - 0.18 * vy) + np.clip(hp, -9, 9) * 0.8)[border]
 a = ndimage.gaussian_filter(interior.astype(float), 0.7) * interior
 out = np.dstack([np.clip(col, 0, 255), a * 255]).astype(np.uint8); out[~interior] = 0
 Image.fromarray(out, 'RGBA').save(f'{D}/01_scene_layers/06b_chair_back_mesh_occupied.png', optimize=True)
